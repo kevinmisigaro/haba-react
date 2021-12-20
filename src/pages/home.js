@@ -309,19 +309,16 @@ function Home() {
         <div className="container">
           <div className="row">
             <div className="col-md-12 text-center mb-2">
-              <h4>
-                You want to be the first to experience all the awesomeness of
-                Haba! <br /> Join our watchlist through the link below
-              </h4>
-              <br />
+              <h4>Start Building your Wealth with Haba Save</h4>
+              <p>
+              You can now save with friends, family and peers and access instant, non-collateral loans from your Haba Save Group. You will be eligible to access instant loans after saving with your group for at least 3 months.
+              </p>
               <br />
               <a
-                href="https://forms.gle/r6tePnYtbhoYJnsPA"
-                rel="noopener noreferrer"
-                target="_blank"
+                href="/members"
                 className="btn btn-success"
               >
-                Join watchlist
+                Start your saving Journey
               </a>
             </div>
           </div>

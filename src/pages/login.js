@@ -37,13 +37,13 @@ function Login() {
                     placeholder="Password"
                   />
                 </div>
-                <button className="btn btn-primary btn-user btn-block">
+                <button className="btn btn-primary btn-user btn-block" style={{ background: '#00a49f' }}>
                   Login
                 </button>
               </form>
               <hr />
               <div className="text-center">
-                <a className="small" href="register.html">
+                <a className="small" href="/register">
                   Create an Account!
                 </a>
               </div>
