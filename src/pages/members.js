@@ -38,6 +38,11 @@ function Members() {
                     onSubmit={onSubmitWizard} />
                 )
             }
+            <div className="text-center mt-3">
+              <a className="small" href="/">
+                Go back home
+              </a>
+            </div>
           </div>
         </div>
       </div>

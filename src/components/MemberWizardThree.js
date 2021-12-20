@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Form, Input, Select } from "usetheform";
 
 function MemberWizardThree({ prevPage, ...props }) {
-  const groups = ["group1", "group2"];
-
+  const groups = [];
   const [joinGroup, updateGroup] = useState(true);
 
   return (
@@ -31,8 +30,8 @@ function MemberWizardThree({ prevPage, ...props }) {
               <Select name="groupChosen" className="form-control">
                 <option>Choose group</option>
                 {groups.map((group) => (
-                  <option key={group} value={group}>
-                    {group}
+                  <option key={group.id} value={group.id}>
+                    {group.name}
                   </option>
                 ))}
               </Select>
@@ -41,12 +40,8 @@ function MemberWizardThree({ prevPage, ...props }) {
         ) : (
           <>
             <div className="form-group mb-3">
-              <label>Group</label>
-              <Input type="text" className="form-control" name="group" />
-            </div>
-            <div className="form-group mb-3">
-              <label>Group Region</label>
-              <Input type="text" className="form-control" name="groupregion" />
+              <label>Group name</label>
+              <Input type="text" className="form-control" name="groupname" />
             </div>
           </>
         )}
