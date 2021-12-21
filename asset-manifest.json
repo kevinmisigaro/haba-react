@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/haba-react/static/css/main.db9f3bd7.chunk.css",
-    "main.js": "/haba-react/static/js/main.0529ee2d.chunk.js",
-    "main.js.map": "/haba-react/static/js/main.0529ee2d.chunk.js.map",
+    "main.js": "/haba-react/static/js/main.ca61f737.chunk.js",
+    "main.js.map": "/haba-react/static/js/main.ca61f737.chunk.js.map",
     "runtime-main.js": "/haba-react/static/js/runtime-main.344a0456.js",
     "runtime-main.js.map": "/haba-react/static/js/runtime-main.344a0456.js.map",
-    "static/js/2.9081d7bb.chunk.js": "/haba-react/static/js/2.9081d7bb.chunk.js",
-    "static/js/2.9081d7bb.chunk.js.map": "/haba-react/static/js/2.9081d7bb.chunk.js.map",
+    "static/js/2.6470f377.chunk.js": "/haba-react/static/js/2.6470f377.chunk.js",
+    "static/js/2.6470f377.chunk.js.map": "/haba-react/static/js/2.6470f377.chunk.js.map",
     "static/js/3.6b0cbd4b.chunk.js": "/haba-react/static/js/3.6b0cbd4b.chunk.js",
     "static/js/3.6b0cbd4b.chunk.js.map": "/haba-react/static/js/3.6b0cbd4b.chunk.js.map",
     "index.html": "/haba-react/index.html",
     "static/css/main.db9f3bd7.chunk.css.map": "/haba-react/static/css/main.db9f3bd7.chunk.css.map",
-    "static/js/2.9081d7bb.chunk.js.LICENSE.txt": "/haba-react/static/js/2.9081d7bb.chunk.js.LICENSE.txt",
+    "static/js/2.6470f377.chunk.js.LICENSE.txt": "/haba-react/static/js/2.6470f377.chunk.js.LICENSE.txt",
     "static/media/Haba-Logo-White.5c642eb3.png": "/haba-react/static/media/Haba-Logo-White.5c642eb3.png",
     "static/media/LineIcons.2.0.css": "/haba-react/static/media/LineIcons.d2e229f7.svg",
     "static/media/app-iphone-white-edited.e9f16d6e.png": "/haba-react/static/media/app-iphone-white-edited.e9f16d6e.png",
@@ -20,8 +20,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.344a0456.js",
-    "static/js/2.9081d7bb.chunk.js",
+    "static/js/2.6470f377.chunk.js",
     "static/css/main.db9f3bd7.chunk.css",
-    "static/js/main.0529ee2d.chunk.js"
+    "static/js/main.ca61f737.chunk.js"
   ]
 }
