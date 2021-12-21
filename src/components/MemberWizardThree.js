@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Form, Input, Select } from "usetheform";
 
-function MemberWizardThree({ prevPage, ...props }) {
-  const groups = [];
+function MemberWizardThree({ prevPage,groups,...props }) {
+  const newGroups = [...groups];
   const [joinGroup, updateGroup] = useState(true);
 
   return (
@@ -14,7 +14,7 @@ function MemberWizardThree({ prevPage, ...props }) {
       <Form name="page3" {...props}>
         <div className="form-group mb-3">
           <div className="d-flex flex-row justify-content-around">
-            <button
+            <button type="button"
               className="btn btn-primary"
               onClick={() => updateGroup(!joinGroup)}
             >
@@ -29,7 +29,7 @@ function MemberWizardThree({ prevPage, ...props }) {
               <label>Group</label>
               <Select name="groupChosen" className="form-control">
                 <option>Choose group</option>
-                {groups.map((group) => (
+                {newGroups.map((group) => (
                   <option key={group.id} value={group.id}>
                     {group.name}
                   </option>

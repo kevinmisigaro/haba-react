@@ -23,7 +23,7 @@ function Home() {
                     <img
                       src={logoWhite}
                       alt="Logo"
-                      style={{ "max-width": "120px" }}
+                      style={{ "maxWidth": "120px" }}
                     />
                   </a>
                   <button
@@ -100,7 +100,7 @@ function Home() {
             <div className="col-lg-7 col-md-12 col-12">
               <div
                 className="hero-content"
-                style={{ "padding-bottom": "70px" }}
+                style={{ "paddingBottom": "70px" }}
               >
                 <h1 className="wow fadeInLeft" data-wow-delay=".4s">
                   Your money companion.
@@ -108,7 +108,7 @@ function Home() {
                 <p
                   className="wow fadeInLeft"
                   data-wow-delay=".6s"
-                  style={{ "text-align": "justify" }}
+                  style={{ "textAlign": "justify" }}
                 >
                   Helping you earn while saving or paying bills without breaking
                   your bank or putting dents in your wallet. <br />
@@ -132,7 +132,7 @@ function Home() {
                 className="hero-image text-center wow fadeInRight"
                 data-wow-delay=".4s"
               >
-                <img src={phonehand} style={{ "max-width": "300px" }} alt="#" />
+                <img src={phonehand} style={{ "maxWidth": "300px" }} alt="#" />
               </div>
             </div>
           </div>
@@ -298,7 +298,7 @@ function Home() {
                 className="hero-image wow text-center fadeInRight"
                 data-wow-delay=".4s"
               >
-                <img src={appwhite} style={{ "max-width": "200px" }} alt="#" />
+                <img src={appwhite} style={{ "maxWidth": "200px" }} alt="#" />
               </div>
             </div>
           </div>

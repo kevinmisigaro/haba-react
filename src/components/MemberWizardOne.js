@@ -90,18 +90,18 @@ function MemberWizardOne(props) {
         <div className="row">
           <div className="col-md-6 mb-3">
             <label>Identification type</label>
-            <select name="idtype" className="form-control">
+            <Select name="idtype" className="form-control">
               <option value="">Choose your identification card</option>
               {cards.map((card) => (
                 <option value={card} key={card}>
                   {card}
                 </option>
               ))}
-            </select>
+            </Select>
           </div>
           <div className="col-md-6 mb-3">
             <label>Identification Card Number</label>
-            <Input name="idcard" className="form-control" type="text" />
+            <Input name="idnumber" className="form-control" type="text" />
           </div>
         </div>
 
