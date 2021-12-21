@@ -9,6 +9,7 @@ import "../home-assets/css/LineIcons.2.0.css";
 import "../home-assets/css/main.css";
 import "../home-assets/css/styles.css";
 import "../home-assets/css/tiny-slider.css";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -314,12 +315,7 @@ function Home() {
               You can now save with friends, family and peers and access instant, non-collateral loans from your Haba Save Group. You will be eligible to access instant loans after saving with your group for at least 3 months.
               </p>
               <br />
-              <a
-                href="/members"
-                className="btn btn-success"
-              >
-                Start your saving Journey
-              </a>
+              <Link to="/members" className="btn btn-success">Start your saving Journey</Link>
             </div>
           </div>
         </div>
