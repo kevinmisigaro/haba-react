@@ -71,7 +71,7 @@ function Home() {
                           Benefits
                         </a>
                       </li>
-                      <li className="nav-item">
+                      {/* <li className="nav-item">
                         <a
                           className="page-scroll"
                           href="/login"
@@ -79,7 +79,7 @@ function Home() {
                         >
                           Login
                         </a>
-                      </li>
+                      </li> */}
                     </ul>
                   </div>
                   <div className="button add-list-button">
