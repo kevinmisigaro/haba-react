@@ -32,7 +32,7 @@ function MemberWizardOne(props) {
           </div>
           <div className="col-md-4 mb-3">
             <label>Phone number</label>
-            <Input name="phone" className="form-control" type="text" />
+            <Input name="phone" className="form-control" placeholder="+255xxxxx" type="text" />
           </div>
         </div>
 

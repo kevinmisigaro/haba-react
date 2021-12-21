@@ -16,7 +16,7 @@ function MemberWizardTwo({ prevPage, ...props }) {
         </div>
         <div className="form-group mb-3">
           <label>Phone number</label>
-          <Input type="text" name="kinphone" className="form-control" />
+          <Input type="text" name="kinphone" placeholder="+255xxxxx" className="form-control" />
         </div>
         <div className="form-group mb-3">
           <label>Physical Address</label>
