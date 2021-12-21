@@ -312,10 +312,12 @@ function Home() {
             <div className="col-md-12 text-center mb-2">
               <h4>Start Building your Wealth with Haba Save</h4>
               <p>
-              You can now save with friends, family and peers and access instant, non-collateral loans from your Haba Save Group. You will be eligible to access instant loans after saving with your group for at least 3 months.
+              You can now save with friends, family and peers and access instant, non-collateral loans from your Haba Save Group. <br/> You will be eligible to access instant loans after saving with your group for at least 3 months.
               </p>
               <br />
-              <Link to="/members" className="btn btn-success">Start your saving Journey</Link>
+              <Link to="/members" style={{padding: '15px 60px', fontSize: '15pt', fontWeight: '800'}} className="btn btn-success btn-lg">
+              Start your saving Journey - Sign Up Here
+              </Link>
             </div>
           </div>
         </div>
