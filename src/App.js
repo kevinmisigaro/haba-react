@@ -6,6 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import Register from "./pages/register";
 import Members from "./pages/members";
 import { Toaster } from "react-hot-toast";
+import Requestloan from "./pages/requestloan";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
           <Route path="/members" element={<Members/>} />
+          <Route path="/loans" element={<Requestloan/>} />
         </Routes>
         <Toaster />
     </div>

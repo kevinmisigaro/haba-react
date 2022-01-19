@@ -10,8 +10,15 @@ import "../home-assets/css/main.css";
 import "../home-assets/css/styles.css";
 import "../home-assets/css/tiny-slider.css";
 import { Link } from "react-router-dom";
+import { useRef } from 'react'
 
 function Home() {
+
+  const productRef = useRef(null)
+  const benefitsRef = useRef(null)
+  const journeyRef = useRef(null)
+  const homeRef = useRef(null)
+
   return (
     <div className="App">
       <header className="header navbar-area">
@@ -47,7 +54,11 @@ function Home() {
                     <ul id="nav" className="navbar-nav ms-auto">
                       <li className="nav-item">
                         <a
-                          href="#home"
+                          href
+                          onClick={(e) => {
+                            e.preventDefault()
+                            homeRef.current.scrollIntoView()
+                          }}
                           className="page-scroll active"
                           aria-label="Toggle navigation"
                         >
@@ -56,7 +67,11 @@ function Home() {
                       </li>
                       <li className="nav-item">
                         <a
-                          href="#products"
+                          href
+                          onClick={(e) => {
+                            e.preventDefault()
+                            productRef.current.scrollIntoView()
+                          }}
                           className="page-scroll"
                           aria-label="Toggle navigation"
                         >
@@ -66,7 +81,11 @@ function Home() {
                       <li className="nav-item">
                         <a
                           className="page-scroll"
-                          href="#benefits"
+                          href
+                          onClick={(e) => {
+                            e.preventDefault()
+                            benefitsRef.current.scrollIntoView()
+                          }}
                           aria-label="Toggle navigation"
                         >
                           Benefits
@@ -83,11 +102,11 @@ function Home() {
                       </li> */}
                     </ul>
                   </div>
-                  <div className="button add-list-button">
+                  {/* <div className="button add-list-button">
                     <a href="#download" className="btn page-scroll">
                       Get it now
                     </a>
-                  </div>
+                  </div> */}
                 </nav>
               </div>
             </div>
@@ -95,7 +114,7 @@ function Home() {
         </div>
       </header>
 
-      <section id="home" className="hero-area">
+      <section id="home" className="hero-area" ref={homeRef}>
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-7 col-md-12 col-12">
@@ -113,18 +132,29 @@ function Home() {
                 >
                   Helping you earn while saving or paying bills without breaking
                   your bank or putting dents in your wallet. <br />
-                  <br />
-                  Download on either option below:
+                 
                 </p>
                 <div className="button wow fadeInLeft" data-wow-delay=".8s">
-                  <a
+                  {/* <a
                     href="https://play.google.com/store/apps/details?id=com.haba"
                     rel="noopener noreferrer"
                     target="_blank"
                     className="btn btn-alt"
                   >
                     <i className="lni lni-play-store"></i> Google Play
-                  </a>
+                  </a> */}
+
+                  <button onClick={(e) => {
+                            e.preventDefault()
+                           journeyRef.current.scrollIntoView()
+                          }} className="btn btn-alt">
+                    Start your saving journey
+                  </button>
+
+                  <Link className="btn btn-alt" to="/loans">
+                    Request Loan
+                  </Link>
+
                 </div>
               </div>
             </div>
@@ -140,7 +170,7 @@ function Home() {
         </div>
       </section>
 
-      <section id="products" className="features section">
+      <section id="products" className="features section" ref={productRef}>
         <div className="container">
           <div className="row">
             <div className="col-12">
@@ -255,7 +285,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="section" id="benefits">
+      <section className="section" id="benefits" ref={benefitsRef}>
         <div className="container">
           <div className="row">
             <div className="col-lg-6 col-md-6">
@@ -306,7 +336,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" ref={journeyRef} id="journey">
         <div className="container">
           <div className="row">
             <div className="col-md-12 text-center mb-2">
@@ -315,7 +345,7 @@ function Home() {
               You can now save with friends, family and peers and access instant, non-collateral loans from your Haba Save Group. <br/> You will be eligible to access instant loans after saving with your group for at least 3 months.
               </p>
               <br />
-              <Link to="/members" style={{padding: '15px 60px', fontSize: '15pt', fontWeight: '800'}} className="btn btn-success btn-lg">
+              <Link to="/members" style={{padding: '15px 60px', fontSize: '15pt', fontWeight: '800', background:'#00a49f', border: '1px solid #00a49f'}} className="btn btn-success btn-lg">
               Start your saving Journey - Sign Up Here
               </Link>
             </div>
@@ -323,7 +353,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="section call-action" id="download">
+      {/* <section className="section call-action" id="download">
         <div className="container">
           <div className="row">
             <div className="col-lg-8 offset-lg-2 col-md-12 col-12">
@@ -348,7 +378,7 @@ function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* <a href="javaScript:void(0);" className="scroll-top">
           <i className="lni lni-chevron-up"></i>
