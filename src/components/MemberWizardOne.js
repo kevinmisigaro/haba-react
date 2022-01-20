@@ -17,7 +17,9 @@ function MemberWizardOne(props) {
   return (
     <>
       <div className="text-center">
-        <h4>Register user</h4>
+        <h4>
+          <b>Register user</b>
+        </h4>
         <br />
       </div>
       <Form name="page1" {...props}>

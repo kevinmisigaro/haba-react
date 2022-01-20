@@ -7,6 +7,8 @@ import Register from "./pages/register";
 import Members from "./pages/members";
 import { Toaster } from "react-hot-toast";
 import Requestloan from "./pages/requestloan";
+import GroupRegister from "./pages/groupregister";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -17,7 +19,9 @@ function App() {
           <Route path="/register" element={<Register/>} />
           <Route path="/members" element={<Members/>} />
           <Route path="/loans" element={<Requestloan/>} />
+          <Route path="/groups" element={<GroupRegister/>} />
         </Routes>
+        <ToastContainer />
         <Toaster />
     </div>
   );

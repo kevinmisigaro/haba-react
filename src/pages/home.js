@@ -11,6 +11,7 @@ import "../home-assets/css/styles.css";
 import "../home-assets/css/tiny-slider.css";
 import { Link } from "react-router-dom";
 import { useRef } from 'react'
+import 'react-toastify/dist/ReactToastify.css';
 
 function Home() {
 
@@ -102,11 +103,11 @@ function Home() {
                       </li> */}
                     </ul>
                   </div>
-                  {/* <div className="button add-list-button">
-                    <a href="#download" className="btn page-scroll">
-                      Get it now
-                    </a>
-                  </div> */}
+                  <div className="button add-list-button">
+                    <Link to="/members" className="btn page-scroll">
+                      Sign up
+                    </Link>
+                  </div>
                 </nav>
               </div>
             </div>
@@ -147,12 +148,16 @@ function Home() {
                   <button onClick={(e) => {
                             e.preventDefault()
                            journeyRef.current.scrollIntoView()
-                          }} className="btn btn-alt">
+                          }} className="btn btn-alt mb-2">
                     Start your saving journey
                   </button>
 
-                  <Link className="btn btn-alt" to="/loans">
+                  <Link className="btn btn-alt mb-2" to="/loans">
                     Request Loan
+                  </Link>
+
+                  <Link className="btn btn-alt mb-2" to="/loans">
+                    Investments
                   </Link>
 
                 </div>
@@ -345,7 +350,7 @@ function Home() {
               You can now save with friends, family and peers and access instant, non-collateral loans from your Haba Save Group. <br/> You will be eligible to access instant loans after saving with your group for at least 3 months.
               </p>
               <br />
-              <Link to="/members" style={{padding: '15px 60px', fontSize: '15pt', fontWeight: '800', background:'#00a49f', border: '1px solid #00a49f'}} className="btn btn-success btn-lg">
+              <Link to="/groups" style={{padding: '15px 60px', fontSize: '15pt', fontWeight: '800', background:'#00a49f', border: '1px solid #00a49f'}} className="btn btn-success btn-lg">
               Start your saving Journey - Sign Up Here
               </Link>
             </div>

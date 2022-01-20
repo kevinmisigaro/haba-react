@@ -36,7 +36,7 @@ function MemberWizardTwo({ prevPage, ...props }) {
             className="btn btn-success btn-user"
             style={{ background: "#00a49f" }}
           >
-            Next
+            Create Account
           </button>
         </div>
       </Form>
