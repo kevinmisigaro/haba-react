@@ -5,7 +5,9 @@ function MemberWizardTwo({ prevPage, ...props }) {
   return (
     <>
       <div className="text-center">
-        <h4>Next of kin details</h4>
+        <h4>
+          <b>Next of kin details</b>
+        </h4>
         <br />
       </div>
 

@@ -28,13 +28,13 @@ function Home() {
             <div className="col-lg-12">
               <div className="nav-inner">
                 <nav className="navbar navbar-expand-lg">
-                  <a className="navbar-brand" href="/">
+                  <Link className="navbar-brand" to="/">
                     <img
                       src={logoWhite}
                       alt="Logo"
                       style={{ "maxWidth": "120px" }}
                     />
-                  </a>
+                  </Link>
                   <button
                     className="navbar-toggler mobile-menu-btn"
                     type="button"
@@ -156,9 +156,9 @@ function Home() {
                     Request Loan
                   </Link>
 
-                  <Link className="btn btn-alt mb-2" to="/loans">
+                  {/* <Link className="btn btn-alt mb-2" to="/loans">
                     Investments
-                  </Link>
+                  </Link> */}
 
                 </div>
               </div>

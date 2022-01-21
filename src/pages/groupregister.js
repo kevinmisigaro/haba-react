@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from "react";
 import InnerNavBar from "../components/InnerNavBar";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 export default function GroupRegiser() {
   const [groups, setGroups] = useState([]);
   const [joinGroup, updateGroup] = useState(true);
   const history = useNavigate();
 
+  const countries = [
+    "Tanzania",
+    "Kenya",
+    "Uganda",
+    "South Africa",
+    "Nigeria",
+    "Rwanda",
+  ];
+
   useEffect(() => {
     document.body.style.backgroundColor = "#00a49f";
 
     const fetchGroups = async () => {
-      const response = await fetch(
-        "https://hababackend.herokuapp.com/api/groups"
-      );
-      const newData = await response.json();
-      setGroups(newData);
+      axios.get(`https://hababackend.herokuapp.com/api/groups`).then((res) => {
+        const data = res.data;
+        setGroups(data);
+      });
     };
 
     fetchGroups();
@@ -29,14 +38,41 @@ export default function GroupRegiser() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log();
+    console.log(values);
+    axios
+      .post(`https://hababackend.herokuapp.com/api/group/create`, values)
+      .then((res) => {
+        toast.success('You have joined the group successfully');
+        history("/");
+      })
+      .catch((err) => {
+        toast.error(err.response.data);
+      });
   };
 
   const [values, setValues] = useState({
     groupChosen: "",
     groupname: "",
     memberID: "",
+    region: "",
+    country: "",
   });
+
+  const handleRegionChange = (e) => {
+    e.persist();
+    setValues((values) => ({
+      ...values,
+      region: e.target.value,
+    }));
+  };
+
+  const handleCountryChange = (e) => {
+    e.persist();
+    setValues((values) => ({
+      ...values,
+      country: e.target.value,
+    }));
+  };
 
   const handleMemberIDChange = (e) => {
     e.persist();
@@ -61,10 +97,6 @@ export default function GroupRegiser() {
       groupChosen: e.target.value,
     }));
   };
-
-  const notify = () => {
-      toast.success('Great')
-    };
 
   return (
     <>
@@ -125,6 +157,33 @@ export default function GroupRegiser() {
                       onChange={handleGroupNameChange}
                       value={values.groupname}
                     />
+                  </div>
+                  <div className="form-group mb-3">
+                    <label>Region</label>
+                    <input
+                      className="form-control"
+                      name="region"
+                      onChange={handleRegionChange}
+                      value={values.region}
+                    />
+                  </div>
+                  <div className="form-group mb-3">
+                    <label>Country</label>
+                    <select
+                      className="form-control"
+                      name="country"
+                      onChange={handleCountryChange}
+                      value={values.country}
+                    >
+                      <option value="" disabled>
+                        Choose your country
+                      </option>
+                      {countries.map((country) => (
+                        <option value={country} key={country}>
+                          {country}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </>
               )}

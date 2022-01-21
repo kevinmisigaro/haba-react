@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useEffect } from "react";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import InnerNavBar from "../components/InnerNavBar";
 import useState from "react-usestateref";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Requestloan() {
   const [guarantors, updateGuaratorsArray, guarantorsRef] = useState([]);
@@ -12,7 +13,7 @@ export default function Requestloan() {
   const frequencies = ["weekly", "monthly"];
   const duration = ["3 months", "6 months", "12 months"];
 
-  const [values, setValues] = useState({
+  const [values, setValues, valuesRef] = useState({
     memberID: "",
     currency: "",
     amount: "",
@@ -20,8 +21,22 @@ export default function Requestloan() {
     duration: "",
   });
 
+  const [habaIDresponse, updateResponse] = useState("");
+  const [idsList, updateIdsList] = useState([]);
+
   useEffect(() => {
     document.body.style.backgroundColor = "#00a49f";
+
+    const getListofIDs = async () => {
+      axios
+        .get(`https://hababackend.herokuapp.com/api/getListofIds`)
+        .then((res) => {
+          const data = res.data;
+          updateIdsList(data);
+        });
+    };
+
+    getListofIDs();
 
     return () => {
       document.body.style.backgroundColor = "";
@@ -78,12 +93,27 @@ export default function Requestloan() {
     }));
   };
 
+  //   const checkIDfromApi = (memberID) => {
+  //       console.log(memberID)
+  //     axios.post(`https://hababackend.herokuapp.com/api/checkID/`,{
+  //         memberID: memberID
+  //     })
+  //     .then((res) => {
+  //         updateResponse(res.data)
+  //         console.log(`${res.data} response`)
+  //     })
+  // }
+
   const handleMemberIDChange = (e) => {
     e.persist();
     setValues((values) => ({
       ...values,
       memberID: e.target.value,
     }));
+
+    idsList.includes(valuesRef.current.memberID)
+      ? updateResponse("")
+      : updateResponse("This is not a valid Haba ID");
   };
 
   const handleCurrencyChange = (e) => {
@@ -119,21 +149,35 @@ export default function Requestloan() {
   };
 
   const saveData = () => {
-    console.log(guarantorsRef.current);
-    // axios
-    //   .post(`https://hababackend.herokuapp.com/api/grouprequestLoan`, values)
-    //   .then((res) => {
-    //     console.log(res);
-    //     console.log(res.data);
-    //     toast.success(res.data);
-    //     history("/");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     console.log(err.data);
-    //     toast.error(err.data);
-    //   });
-  }
+    console.log({
+      currency: values.currency,
+      amount: values.amount,
+      frequency: values.frequency,
+      duration: values.duration,
+      memberID: values.memberID,
+      guarantors: guarantorsRef.current,
+    });
+    axios
+      .post(`https://hababackend.herokuapp.com/api/grouprequestLoan`, {
+        currency: values.currency,
+        amount: values.amount,
+        frequency: values.frequency,
+        duration: values.duration,
+        memberID: values.memberID,
+        guarantors: guarantorsRef.current,
+      })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+        toast.success(res.data);
+        history("/");
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log(err.response.data);
+        toast.error(err.response.data);
+      });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -206,6 +250,7 @@ export default function Requestloan() {
                   type="text"
                   onChange={handleMemberIDChange}
                 />
+                <small style={{ color: "red" }}>{habaIDresponse}</small>
               </div>
 
               <div className="row mb-4">

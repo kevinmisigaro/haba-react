@@ -4,10 +4,10 @@ import { useMultipleForm } from "usetheform";
 import MemberWizardOne from "../components/MemberWizardOne";
 import MemberWizardTwo from "../components/MemberWizardTwo";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import InnerNavBar from "../components/InnerNavBar";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 
 function Members() {
   const history = useNavigate();
@@ -21,6 +21,24 @@ function Members() {
   }, []);
 
   const saveData = () => {
+
+    console.log({
+      name: getWizardState().name,
+      email: getWizardState().email,
+      phone: getWizardState().phone,
+      gender: getWizardState().gender,
+      dob: getWizardState().dob,
+      occupation: getWizardState().occupation,
+      address: getWizardState().address,
+      region: getWizardState().region,
+      country: getWizardState().country,
+      idtype: getWizardState().idtype,
+      idnumber: getWizardState().idnumber,
+      kinname: getWizardState().kinname,
+      kinphone: getWizardState().kinphone,
+      kinaddress: getWizardState().kinaddress,
+    })
+
     axios
       .post(`https://hababackend.herokuapp.com/api/memberStore`, {
         name: getWizardState().name,
@@ -39,12 +57,12 @@ function Members() {
         kinaddress: getWizardState().kinaddress,
       })
       .then((res) => {
-        toast.success("Your details have been saved!");
+        toast.success(res.data);
         history("/");
       })
       .catch((err) => {
         console.log(err)
-        toast.error(err)
+        toast.error(err.response.data)
       });
   };
 
