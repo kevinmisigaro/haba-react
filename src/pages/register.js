@@ -5,6 +5,8 @@ import { useEffect } from "react";
 import { useMultipleForm } from "usetheform";
 import WizardRegisterForm from "../components/WizardRegisterForm";
 import WizardRegisterFormTwo from "../components/WizardRegisterFormTwo";
+import { Link } from "react-router-dom";
+import InnerNavBar from "../components/InnerNavBar";
 
 function Register() {
   useEffect(() => {
@@ -19,7 +21,9 @@ function Register() {
   const onSubmitWizard = () => console.log(getWizardState());
 
   return (
-    <div className="container d-flex justify-content-center">
+    <>
+      <InnerNavBar />
+      <div className="container d-flex justify-content-center" style={{marginTop: '100px'}}>
       <div
         className="card o-hidden border-0 shadow-lg my-5"
         style={{ width: "600px" }}
@@ -41,9 +45,9 @@ function Register() {
             )}
             <hr />
             <div className="text-center">
-              <a className="small" href="/login">
+              <Link className="small" to="/login">
                 Already have an account? Login!
-              </a>
+              </Link>
             </div>
             <div className="text-center">
               <a className="small" href="/">
@@ -54,6 +58,7 @@ function Register() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

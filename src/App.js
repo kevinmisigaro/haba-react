@@ -9,6 +9,9 @@ import { Toaster } from "react-hot-toast";
 import Requestloan from "./pages/requestloan";
 import GroupRegister from "./pages/groupregister";
 import { ToastContainer } from "react-toastify";
+import Investments from "./pages/investments";
+import CompanyDetailsPage from "./pages/CompanyDetailsPage";
+import Userdashboardhome from "./pages/userDashboard/userdashboardhome";
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
           <Route path="/members" element={<Members/>} />
           <Route path="/loans" element={<Requestloan/>} />
           <Route path="/groups" element={<GroupRegister/>} />
+          <Route path="/investments" element={<Investments/>} />
+          <Route path="/company" element={<CompanyDetailsPage/>}/>
+          <Route path="/dashboard/home" element={<Userdashboardhome/>} />
         </Routes>
         <ToastContainer />
         <Toaster />

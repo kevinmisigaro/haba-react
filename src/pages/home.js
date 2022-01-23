@@ -92,15 +92,14 @@ function Home() {
                           Benefits
                         </a>
                       </li>
-                      {/* <li className="nav-item">
-                        <a
+                      <li className="nav-item">
+                        <Link
                           className="page-scroll"
-                          href="/login"
-                          aria-label="Toggle navigation"
+                          to="/login"
                         >
                           Login
-                        </a>
-                      </li> */}
+                        </Link>
+                      </li>
                     </ul>
                   </div>
                   <div className="button add-list-button">
@@ -156,9 +155,9 @@ function Home() {
                     Request Loan
                   </Link>
 
-                  {/* <Link className="btn btn-alt mb-2" to="/loans">
+                  <Link className="btn btn-alt mb-2" to="/investments">
                     Investments
-                  </Link> */}
+                  </Link>
 
                 </div>
               </div>
