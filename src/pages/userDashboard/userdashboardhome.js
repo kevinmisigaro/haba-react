@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
@@ -14,9 +14,16 @@ export default function Userdashboardhome() {
 
   return (
     <div className="container pt-5">
-      <div className="card" style={{ width: "100%" }}>
-        <div className="card-body">
+      <div className="text-center">
+        <h4 style={{ color: "white" }}>
+          <b>
+            <u>Your Recent Haba Activities</u>
+          </b>
+        </h4>
+      </div>
 
+      <div className="card mt-4" style={{ width: "100%" }}>
+        <div className="card-body">
           <Tabs>
             <TabList>
               <Tab>Overview</Tab>
@@ -26,9 +33,7 @@ export default function Userdashboardhome() {
             </TabList>
 
             <TabPanel>
-              <Link to="/">
-                Return home
-              </Link>
+              <Link to="/">Return home</Link>
             </TabPanel>
             <TabPanel>
               <h2>Any content 2</h2>
@@ -40,8 +45,6 @@ export default function Userdashboardhome() {
               <h2>Any content 4</h2>
             </TabPanel>
           </Tabs>
-
-
         </div>
       </div>
     </div>

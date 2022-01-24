@@ -26,7 +26,7 @@ export default function CompanyDetailsPage() {
           </div>
           <br />
           <div className="text-center">
-            <button className="btn btn-info px-5">
+            <button className="btn btn-info btn-block">
               <b>Invest</b>
             </button>
           </div>
