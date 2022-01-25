@@ -1,11 +1,23 @@
-import React, { useEffect } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import InnerNavBar from "../components/InnerNavBar";
 import InvestmentCard from "../components/InvestmentCard";
 
 export default function Investments() {
+
+  const [companies, setCompanies] = useState([])
+
   useEffect(() => {
     document.body.style.backgroundColor = "#00a49f";
+
+    const fetchCompanies = async() => {
+      axios.get(`https://hababackend.herokuapp.com/api/company`).then(res => {
+        setCompanies(res.data)
+      })
+    }
+
+    fetchCompanies()
 
     return () => {
       document.body.style.backgroundColor = "";
@@ -31,10 +43,11 @@ export default function Investments() {
         </div>
 
         <div className="row mt-5">
-          <InvestmentCard />
-          <InvestmentCard />
-          <InvestmentCard />
-          <InvestmentCard />
+          {
+            companies.map(c => (
+              <InvestmentCard key={c.id} company={c} />
+            ))
+          }
         </div>
       </div>
     </>

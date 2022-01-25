@@ -1,15 +1,71 @@
-import React, { useEffect } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Button, Modal, ProgressBar } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import InnerNavBar from "../components/InnerNavBar";
 import kukuimage from "../home-assets/images/kukusample.png";
 
 export default function CompanyDetailsPage() {
+  const [company, setCompany] = useState({});
+  const { id } = useParams();
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [values, setValues] = useState({
+    habaID: "",
+    amount: "",
+  });
+
+  const handleAmountChange = (e) => {
+    e.persist();
+    setValues((values) => ({
+      ...values,
+      amount: e.target.value,
+    }));
+  };
+
+  const handleIDChange = (e) => {
+    e.persist();
+    setValues((values) => ({
+      ...values,
+      habaID: e.target.value,
+    }));
+  };
+
   useEffect(() => {
     document.body.style.backgroundColor = "#00a49f";
+
+    const fetchCompany = async (id) => {
+      axios
+        .get(`https://hababackend.herokuapp.com/api/company/${id}`)
+        .then((res) => {
+          setCompany(res.data);
+        });
+    };
+
+    fetchCompany(id);
 
     return () => {
       document.body.style.backgroundColor = "";
     };
   }, []);
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault()
+    handleClose()
+    console.log(values)
+    axios.post(`https://hababackend.herokuapp.com/api/company/invest/${id}`,values)
+    .then((res) => {
+      toast.success(
+        "You have submitted a request to invest. Please await feedback."
+      );
+    })
+    .catch((err) => {
+      toast.error(err.response.data);
+    });
+  }
 
   return (
     <>
@@ -26,23 +82,75 @@ export default function CompanyDetailsPage() {
           </div>
           <br />
           <div className="text-center">
-            <button className="btn btn-info btn-block">
-              <b>Invest</b>
-            </button>
+            <Button variant="info" className="btn-block" onClick={handleShow}>
+              Invest
+            </Button>
+
+            <br/>
+
+            <ProgressBar animated now={60} variant="success" label={`60%`} />
+
+            <div className="mt-2 text-center text-white">
+              5000 raised out of 100000
+            </div>
+
+            <Modal show={show} onHide={handleClose} centered>
+              <Modal.Header closeButton>
+                <Modal.Title>{company.name} investment</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                You are about to invest on this company. Please enter the amount
+                you want to invest.
+                <br />
+                <br />
+                <form onSubmit={handleOnSubmit}>
+                  <div className="form-group mb-2">
+                    <input
+                      placeholder="Enter your Haba ID"
+                      value={values.habaID}
+                      onChange={handleIDChange}
+                      type="text"
+                      className="form-control"
+                    />
+                  </div>
+                  <div className="form-group mb-4">
+                    <input
+                      placeholder="Enter amount"
+                      value={values.amount}
+                      onChange={handleAmountChange}
+                      type="number"
+                      className="form-control"
+                    />
+                  </div>
+                  <div className="form-group mb-2">
+                    <button type="submit" className="btn btn-block btn-success">
+                      Invest
+                    </button>
+                  </div>
+                </form>
+              </Modal.Body>
+            </Modal>
           </div>
         </div>
         <div className="col-md-8 col-sm-12 mb-2">
           <div className="mt-2 text-white ml-3">
             <h3 style={{ color: "white" }}>
-              <b>Company Name</b>
+              <b>{company.name}</b>
             </h3>
-            <p style={{ color: "white" }}>20 investors</p>
-            <p style={{ color: "white" }}>Return percent: 5% per month</p>
-            <p>Company link: www.kptl.com</p>
-            <br/>
-            <p style={{textAlign:'justify'}}>
-            <b>Description:</b><br/>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            <p>
+              {company.investors == null ? 0 : company.investors.length}{" "}
+              investors
+            </p>
+            <p>Return percent: {company.return_percentage * 100}% per month</p>
+            <p>
+              <b>Raising goal:</b> {company.currency} {company.raising_goal}
+            </p>
+            <p style={{ textAlign: "justify" }}>
+              <b>Description:</b>
+              <br />
+              {company.description !== null
+                ? company.description
+                : "No description"}
             </p>
           </div>
         </div>

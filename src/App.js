@@ -24,7 +24,7 @@ function App() {
           <Route path="/loans" element={<Requestloan/>} />
           <Route path="/groups" element={<GroupRegister/>} />
           <Route path="/investments" element={<Investments/>} />
-          <Route path="/company" element={<CompanyDetailsPage/>}/>
+          <Route path="/company/:id" element={<CompanyDetailsPage/>}/>
           <Route path="/dashboard/home" element={<Userdashboardhome/>} />
         </Routes>
         <ToastContainer />
