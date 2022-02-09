@@ -103,6 +103,9 @@ function Home() {
                     </ul>
                   </div>
                   <div className="button add-list-button">
+                  <Link to="/register" className="btn page-scroll me-3">
+                      Start your Fundraiser
+                    </Link>
                     <Link to="/members" className="btn page-scroll">
                       Sign up
                     </Link>
