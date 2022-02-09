@@ -37,6 +37,7 @@ function Members() {
       kinname: getWizardState().kinname,
       kinphone: getWizardState().kinphone,
       kinaddress: getWizardState().kinaddress,
+      password: getWizardState().password
     })
 
     axios
@@ -55,6 +56,7 @@ function Members() {
         kinname: getWizardState().kinname,
         kinphone: getWizardState().kinphone,
         kinaddress: getWizardState().kinaddress,
+        password: getWizardState().password
       })
       .then((res) => {
         toast.success(res.data);

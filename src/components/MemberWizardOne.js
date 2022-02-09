@@ -107,6 +107,17 @@ function MemberWizardOne(props) {
           </div>
         </div>
 
+        <div className="row">
+            <div className="col-md-6 mb-3">
+            <label>Password</label>
+            <Input type="password" name="password" className="form-control" />
+            </div>
+            <div className="col-md-6 mb-3">
+            <label>Confirm Password</label>
+            <input type='password' name="confirmpassword" className="form-control" />
+            </div>
+        </div>
+
         <div className="text-center">
           <button
             type="submit"

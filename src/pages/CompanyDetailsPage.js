@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Button, Modal, ProgressBar } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import InnerNavBar from "../components/InnerNavBar";
 import kukuimage from "../home-assets/images/kukusample.png";
@@ -13,6 +13,7 @@ export default function CompanyDetailsPage() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [percentage, setPercentage] = useState(0);
   const [values, setValues] = useState({
     habaID: "",
     amount: "",
@@ -41,7 +42,15 @@ export default function CompanyDetailsPage() {
       axios
         .get(`https://hababackend.herokuapp.com/api/company/${id}`)
         .then((res) => {
+          const data = res.data;
           setCompany(res.data);
+
+          let rAmount = parseInt(data.raising_goal);
+          let currentAmount = parseInt(data.investment_amount);
+
+          const result = (currentAmount / rAmount) * 100;
+
+          setPercentage(result);
         });
     };
 
@@ -53,19 +62,23 @@ export default function CompanyDetailsPage() {
   }, []);
 
   const handleOnSubmit = (e) => {
-    e.preventDefault()
-    handleClose()
-    console.log(values)
-    axios.post(`https://hababackend.herokuapp.com/api/company/invest/${id}`,values)
-    .then((res) => {
-      toast.success(
-        "You have submitted a request to invest. Please await feedback."
-      );
-    })
-    .catch((err) => {
-      toast.error(err.response.data);
-    });
-  }
+    e.preventDefault();
+    handleClose();
+    console.log(values);
+    axios
+      .post(
+        `https://hababackend.herokuapp.com/api/company/invest/${id}`,
+        values
+      )
+      .then((res) => {
+        toast.success(
+          "You have submitted a request to invest. Please await feedback."
+        );
+      })
+      .catch((err) => {
+        toast.error(err.response.data);
+      });
+  };
 
   return (
     <>
@@ -86,12 +99,17 @@ export default function CompanyDetailsPage() {
               Invest
             </Button>
 
-            <br/>
+            <br/> <br/>
 
-            <ProgressBar animated now={60} variant="success" label={`60%`} />
+            <ProgressBar
+              animated
+              now={percentage}
+              variant="success"
+              label={`${percentage}%`}
+            />
 
             <div className="mt-2 text-center text-white">
-              5000 raised out of 100000
+              {company.investment_amount} raised out of {company.raising_goal}
             </div>
 
             <Modal show={show} onHide={handleClose} centered>
@@ -113,7 +131,7 @@ export default function CompanyDetailsPage() {
                       className="form-control"
                     />
                   </div>
-                  <div className="form-group mb-4">
+                  <div className="form-group mb-3">
                     <input
                       placeholder="Enter amount"
                       value={values.amount}
@@ -122,10 +140,13 @@ export default function CompanyDetailsPage() {
                       className="form-control"
                     />
                   </div>
-                  <div className="form-group mb-2">
-                    <button type="submit" className="btn btn-block btn-success">
+                  <div className="form-group mb-2 text-center">
+                    <button type="submit" className="btn btn-block btn-success px-5">
                       Invest
                     </button>
+                  </div>
+                  <div className="mt-4 text-center">
+                    If you dont have a Haba ID, <Link to="/members">sign up here</Link>
                   </div>
                 </form>
               </Modal.Body>
