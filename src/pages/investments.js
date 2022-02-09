@@ -36,7 +36,7 @@ export default function Investments() {
           </h3>
           <br/>
           <p style={{color: 'white'}}>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+          Hava Invest enables you to securely grow your money by investing in verified and secured projects for short term returns. Browse through available investable businesses on Haba and invest as little as TZS 23,000 and above to earn extra income from your capital. Why store money without making it work for you? Haba Invest now offers you a lifetime opportunity to earn dividends on your investment.
           </p>
         </div>
 
