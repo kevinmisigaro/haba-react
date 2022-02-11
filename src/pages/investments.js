@@ -36,7 +36,7 @@ export default function Investments() {
           </h3>
           <br/>
           <p style={{color: 'white'}}>
-          Hava Invest enables you to securely grow your money by investing in verified and secured projects for short term returns. Browse through available investable businesses on Haba and invest as little as TZS 23,000 and above to earn extra income from your capital. Why store money without making it work for you? Haba Invest now offers you a lifetime opportunity to earn dividends on your investment.
+          Haba Invest enables you to securely grow your money by investing in verified and secured projects for short term returns. Browse through available investable businesses on Haba and invest as little as TZS 23,000 and above to earn extra income from your capital. Why store money without making it work for you? Haba Invest now offers you a lifetime opportunity to earn dividends on your investment.
           </p>
         </div>
 
