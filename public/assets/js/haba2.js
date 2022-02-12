@@ -27,7 +27,7 @@ Author: GrayGrids
         if (window.pageYOffset > sticky) {
           header_navbar.classList.add("sticky");
           logo.src = 'assets/images/Haba-Logo-PNG.png';
-          logo.style = 'max-width: 120px';
+          logo.style = 'max-width: 70px';
         } else {
           header_navbar.classList.remove("sticky");
           logo.src = 'assets/images/Haba-Logo-White.png';

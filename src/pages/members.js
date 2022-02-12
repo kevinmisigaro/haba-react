@@ -7,11 +7,11 @@ import { useNavigate } from "react-router-dom";
 import InnerNavBar from "../components/InnerNavBar";
 import axios from "axios";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"
+import "react-toastify/dist/ReactToastify.css";
 
 function Members() {
   const history = useNavigate();
-  
+
   useEffect(() => {
     document.body.style.backgroundColor = "#00a49f";
 
@@ -21,7 +21,6 @@ function Members() {
   }, []);
 
   const saveData = () => {
-
     console.log({
       name: getWizardState().name,
       email: getWizardState().email,
@@ -37,8 +36,8 @@ function Members() {
       kinname: getWizardState().kinname,
       kinphone: getWizardState().kinphone,
       kinaddress: getWizardState().kinaddress,
-      password: getWizardState().password
-    })
+      password: getWizardState().password,
+    });
 
     axios
       .post(`https://hababackend.herokuapp.com/api/memberStore`, {
@@ -56,15 +55,17 @@ function Members() {
         kinname: getWizardState().kinname,
         kinphone: getWizardState().kinphone,
         kinaddress: getWizardState().kinaddress,
-        password: getWizardState().password
+        password: getWizardState().password,
       })
       .then((res) => {
         toast.success(res.data);
-        history("/");
+        console.log(res.data);
+        localStorage.setItem('confirm',res.data)
+        history('/')
       })
       .catch((err) => {
-        console.log(err)
-        toast.error(err.response.data)
+        console.log(err);
+        toast.error("An error has occurred")
       });
   };
 

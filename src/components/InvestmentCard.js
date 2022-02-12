@@ -23,12 +23,12 @@ export default function InvestmentCard({ company }) {
               <b>{company.name}</b> <br /> {company.investors.length} investors
             </p>
             <div className="text-center">
-              <button
-                type="button" onClick={(e) => {e.preventDefault()}}
+              <Link
+                to={{ pathname: `/company/${company.id}` }}
                 className="btn btn-sm btn-success px-5 py-1"
               >
                 View
-              </button>
+              </Link>
             </div>
           </div>
         </div>

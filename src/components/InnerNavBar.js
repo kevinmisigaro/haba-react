@@ -37,25 +37,34 @@ export default function InnerNavBar() {
                   <ul id="nav" className="navbar-nav ms-auto">
                     <li className="nav-item">
                       <Link to="/" className="page-scroll active">
-                        Return home
+                        Home
                       </Link>
                     </li>
-
-                    {/* <li className="nav-item">
-                    <a
-                      className="page-scroll"
-                      href="/login"
-                      aria-label="Toggle navigation"
-                    >
-                      Login
-                    </a>
-                  </li> */}
+                    <li className="nav-item">
+                        <Link
+                          className="page-scroll"
+                          to="/login"
+                        >
+                          Login
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link
+                          className="page-scroll"
+                          to="/members"
+                        >
+                          Sign up
+                        </Link>
+                      </li>
+                      <li className="nav-item">
+                        <Link
+                          className="page-scroll"
+                          to="/register"
+                        >
+                          Start your Fundraiser
+                        </Link>
+                      </li>
                   </ul>
-                </div>
-                <div className="button add-list-button">
-                  <Link to="/members" className="btn page-scroll">
-                    Sign up
-                  </Link>
                 </div>
               </nav>
             </div>

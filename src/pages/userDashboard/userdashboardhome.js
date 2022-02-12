@@ -15,7 +15,7 @@ export default function Userdashboardhome() {
 
     setUser(JSON.parse(localStorage.getItem("user")));
 
-    console.log();
+    console.log(user);
 
     return () => {
       document.body.style.backgroundColor = "";
@@ -65,7 +65,7 @@ export default function Userdashboardhome() {
       <div className="text-center">
         <h4 style={{ color: "white" }}>
           <b>
-            <u>Your Recent Haba Activities</u>
+          Your Recent Haba Activities
           </b>
         </h4>
       </div>
@@ -86,8 +86,8 @@ export default function Userdashboardhome() {
             <TabList>
               <Tab>Overview</Tab>
               <Tab>Profile</Tab>
-              {user.groups?.length > 0 ? "<Tab>Group</Tab>" : false}
-              {user.companies?.length > 0 ? " <Tab>Investments</Tab>" : false}
+              <Tab>Group</Tab>
+              <Tab>Investments</Tab>
             </TabList>
 
             <TabPanel>
@@ -97,7 +97,7 @@ export default function Userdashboardhome() {
                 <br />
                 <div className="row">
                   <div className="col-md-4">
-                    <Card bg="success" className="shadow" text="white">
+                    <Card bg="success" className="shadow mb-2" text="white">
                       <Card.Body>
                         {user.groups?.length > 0
                           ? `${user.groups?.length} groups`
@@ -106,7 +106,7 @@ export default function Userdashboardhome() {
                     </Card>
                   </div>
                   <div className="col-md-4">
-                    <Card bg="success" className="shadow" text="white">
+                    <Card bg="success" className="shadow mb-2" text="white">
                       <Card.Body>
                         {user.companies?.length > 0
                           ? `${user.companies?.length} investments`
@@ -144,10 +144,10 @@ export default function Userdashboardhome() {
             </TabPanel>
             
             <TabPanel>
-              <h2>Any content 3</h2>
+                You are a member of  {user.groups?.length } {user.groups?.length == 1 ? 'group' : 'groups' }
             </TabPanel>
             <TabPanel>
-              <h2>Any content 4</h2>
+              You have {user.companies?.length} { user.companies?.length == 1 ? 'investment': 'investments' }
             </TabPanel>
           </Tabs>
         </div>

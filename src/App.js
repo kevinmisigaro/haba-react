@@ -12,6 +12,7 @@ import { ToastContainer } from "react-toastify";
 import Investments from "./pages/investments";
 import CompanyDetailsPage from "./pages/CompanyDetailsPage";
 import Userdashboardhome from "./pages/userDashboard/userdashboardhome";
+import AccountComplete from "./pages/accountComplete";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/investments" element={<Investments/>} />
           <Route path="/company/:id" element={<CompanyDetailsPage/>}/>
           <Route path="/dashboard/home" element={<Userdashboardhome/>} />
+          <Route path="/accountConfirm" element={<AccountComplete/>} />
         </Routes>
         <ToastContainer />
         <Toaster />
