@@ -65,7 +65,7 @@ function Members() {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("An error has occurred")
+        toast.error(err.response.data)
       });
   };
 
