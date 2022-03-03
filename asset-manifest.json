@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.46b7d32e.chunk.css",
-    "main.js": "/static/js/main.40df9230.chunk.js",
-    "main.js.map": "/static/js/main.40df9230.chunk.js.map",
+    "main.js": "/static/js/main.fb9112e6.chunk.js",
+    "main.js.map": "/static/js/main.fb9112e6.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.0b2ea54b.js",
     "runtime-main.js.map": "/static/js/runtime-main.0b2ea54b.js.map",
     "static/css/2.2f18fcbe.chunk.css": "/static/css/2.2f18fcbe.chunk.css",
@@ -17,13 +17,14 @@
     "static/media/Haba-Logo-White.5c642eb3.png": "/static/media/Haba-Logo-White.5c642eb3.png",
     "static/media/LineIcons.2.0.css": "/static/media/LineIcons.d2e229f7.svg",
     "static/media/app-iphone-white-edited.e9f16d6e.png": "/static/media/app-iphone-white-edited.e9f16d6e.png",
-    "static/media/phone-hand.3af5c099.png": "/static/media/phone-hand.3af5c099.png"
+    "static/media/phone-hand.3af5c099.png": "/static/media/phone-hand.3af5c099.png",
+    "static/media/students.28b74a5e.jpg": "/static/media/students.28b74a5e.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.0b2ea54b.js",
     "static/css/2.2f18fcbe.chunk.css",
     "static/js/2.07958351.chunk.js",
     "static/css/main.46b7d32e.chunk.css",
-    "static/js/main.40df9230.chunk.js"
+    "static/js/main.fb9112e6.chunk.js"
   ]
 }
