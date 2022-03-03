@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import logoWhite from "../home-assets/images/Haba-Logo-White.png";
 
 export default function InnerNavBar() {
+
   return (
-    <header className="header navbar-area">
+    <header className="header navbar-area" style={{backgroundColor: '#00a49f'}}>
       <div className="container">
         <div className="row align-items-center">
           <div className="col-lg-12">
@@ -38,6 +39,12 @@ export default function InnerNavBar() {
                     <li className="nav-item">
                       <Link to="/" className="page-scroll active">
                         Home
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link  className="page-scroll"
+                          to="/campus">
+                        Campus
                       </Link>
                     </li>
                     <li className="nav-item">

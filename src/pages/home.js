@@ -93,6 +93,11 @@ function Home() {
                         </a>
                       </li>
                       <li className="nav-item">
+                        <Link to="/campus">
+                          Campus
+                        </Link>
+                      </li>
+                      <li className="nav-item">
                         <Link
                           className="page-scroll"
                           to="/login"

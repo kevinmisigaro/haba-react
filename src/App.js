@@ -13,6 +13,7 @@ import Investments from "./pages/investments";
 import CompanyDetailsPage from "./pages/CompanyDetailsPage";
 import Userdashboardhome from "./pages/userDashboard/userdashboardhome";
 import AccountComplete from "./pages/accountComplete";
+import CampusAmbassadors from "./pages/campusAmbassadors";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/company/:id" element={<CompanyDetailsPage/>}/>
           <Route path="/dashboard/home" element={<Userdashboardhome/>} />
           <Route path="/accountConfirm" element={<AccountComplete/>} />
+          <Route path="/campus" element={<CampusAmbassadors/>} />
         </Routes>
         <ToastContainer />
         <Toaster />
