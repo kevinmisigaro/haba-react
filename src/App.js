@@ -14,6 +14,7 @@ import CompanyDetailsPage from "./pages/CompanyDetailsPage";
 import Userdashboardhome from "./pages/userDashboard/userdashboardhome";
 import AccountComplete from "./pages/accountComplete";
 import CampusAmbassadors from "./pages/campusAmbassadors";
+import CampusConfirm from "./pages/campusConfirm";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/dashboard/home" exact element={<Userdashboardhome/>} />
           <Route path="/accountConfirm" exact element={<AccountComplete/>} />
           <Route path="/campus" exact element={<CampusAmbassadors/>} />
+          <Route path="/campusConfirm" exact element={<CampusConfirm/>} />
         </Routes>
         <ToastContainer />
         <Toaster />

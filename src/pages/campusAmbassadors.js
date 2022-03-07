@@ -170,7 +170,7 @@ export default function CampusAmbassadors() {
       .then((res) => {
         console.log(res)
         toast.success("Your application has successfully been sent.");
-        history("/");
+        history("/campusConfirm");
       })
       .catch((err) => {
         toast.error(err.response.data);
