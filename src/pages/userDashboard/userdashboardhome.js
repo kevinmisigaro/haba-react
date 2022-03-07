@@ -51,6 +51,7 @@ export default function Userdashboardhome() {
   const handleDepositSubmit = (e) => {
     e.preventDefault();
     console.log(depositValues)
+    handleCloseDepositModal()
 
     const orderID = Date().toString()
 
@@ -76,12 +77,20 @@ export default function Userdashboardhome() {
           "phone": depositValues.phonenumber
         }).then(() => {
 
-          axios.get(`https://hababackend.herokuapp.com/api/checkPaymentStatus/${orderID}`)
+          setTimeout(function(){
+            axios.get(`https://hababackend.herokuapp.com/api/checkPaymentStatus/${orderID}`)
             .then(res => {
 
-              
+                if(res.data == 200){
+                  return toast.success(`${depositValues.amount} has been added to your account.`)
+                } else if(res.data == 300){
+                  return toast.warning('The transaction has failed/was cancelled')
+                } else{
+                  return toast.error('An error has occured')
+                }
 
             })
+          }, 4000)
 
         })
 
@@ -232,7 +241,7 @@ export default function Userdashboardhome() {
             </TabPanel>
             <TabPanel>
               <div className="text-center my-4">
-              <p>Amount saved: TZS 8000</p>
+              <p>Amount saved: TZS 0.00</p>
               </div>
 
               <div className="row mb-3">
@@ -250,7 +259,7 @@ export default function Userdashboardhome() {
                 <Modal.Title>Deposit amount</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <form>
+                <form onSubmit={handleDepositSubmit}>
                     <div className="form-group mb-3">
                       <p>
                         Make sure your deposit is greater or equal to 1000 TZS
@@ -271,7 +280,7 @@ export default function Userdashboardhome() {
                               onChange={handleNumberChange} type="text" />
                     </div>
                     <div className="form-group mb-2">
-                      <button className="btn btn-success">
+                      <button className="btn btn-success" type="submit">
                         Deposit
                       </button>
                     </div>
