@@ -4,7 +4,6 @@ import { Button, Card, Modal } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import { FlutterWaveButton, closePaymentModal, useFlutterwave } from 'flutterwave-react-v3';
 import { toast } from "react-toastify";
 
 export default function Userdashboardhome() {
@@ -52,46 +51,42 @@ export default function Userdashboardhome() {
   const handleDepositSubmit = (e) => {
     e.preventDefault();
     console.log(depositValues)
+
+    const orderID = Date().toString()
+
+    const data = {
+      "api": 170,
+      "code": 140,
+      "data": {
+        "api_key": "NDgxNjBkN2MwNDE2NDM3NGI0Y2MzMjNjNWEzMDFhNzM=",
+        "order_id": orderID,
+        "amount": depositValues.amount,
+        "username": "Haba",
+        "phone_number": depositValues.phonenumber,
+        "webhook_url": "https://hababackend.herokuapp.com/api/paymentCallback"
+      }
+    }
+
+    axios.post(`https://swahiliesapi.invict.site/Api`, data)
+      .then(() => {
+
+        axios.post(`https://hababackend.herokuapp.com/api/makePayment`,{
+          "orderID": orderID,
+          "amount": depositValues.amount,
+          "phone": depositValues.phonenumber
+        }).then(() => {
+
+          axios.get(`https://hababackend.herokuapp.com/api/checkPaymentStatus/${orderID}`)
+            .then(res => {
+
+              
+
+            })
+
+        })
+
+      })
   }
-
-  const config = {
-    public_key: 'FLWPUBK-beb8a5a0af5c4343b38e5831d6424963-X',
-    tx_ref: Date.now(),
-    amount: depositValues.amount,
-    currency: 'TZS',
-    payment_options: 'card,mpesa,mobilemoney,ussd',
-    customer: {
-      email: user.email,
-      phonenumber: depositValues.phonenumber,
-      name: user.name
-    },
-    customizations: {
-      title: 'Haba deposit',
-      description: 'Deposit your savings to Haba via Flutterwave',
-      logo: 'https://previews.dropbox.com/p/thumb/ABchIXTdhcYtP3LjOLZ1JMPATxbtPnV_ENeav4T-E1k8AULQyMKF4y2Ag2MIUdfhZ8N-b2BkhU0lg5PgRmafY6aizrG23sveaCns2IipT7Oc0JHr-HtWI9wYia14qgVzuksgn-dkPnZNk_QIGbKWyKLakuAQePa3GRsrSmgO78Xuew_199i8b8rAEtbT8cBglKaiW_2_H4OiYIR54ELRHDPhiZEiTS5aosuBrOQ9hHi4bQ/p.png?size=256x256&size_mode=2'
-    },
-  };
-
-  const handleFlutterPaymentDeposit = useFlutterwave(config);
-
-
-  // const getUserDetails = (e) => {
-  //   e.preventDefault();
-  //   console.log(user.id);
-  //   axios
-  //     .get(`https://hababackend.herokuapp.com/api/gethabaUserrr/${user.id}`, {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "Access-Control-Allow-Origin": "*",
-  //       },
-  //     })
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((err) => {
-  //       toast.error(err.response.data);
-  //     });
-  // };
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -255,8 +250,12 @@ export default function Userdashboardhome() {
                 <Modal.Title>Deposit amount</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <div>
-                  
+                <form>
+                    <div className="form-group mb-3">
+                      <p>
+                        Make sure your deposit is greater or equal to 1000 TZS
+                      </p>
+                    </div>
                     <div className="form-group mb-2">
                       <label>Amount</label>
                       <input className="form-control" 
@@ -272,20 +271,12 @@ export default function Userdashboardhome() {
                               onChange={handleNumberChange} type="text" />
                     </div>
                     <div className="form-group mb-2">
-                      <button className="btn btn-success" onClick={() => {
-                        handleFlutterPaymentDeposit({
-                          callback: (response) => {
-                            console.log(response);
-                            closePaymentModal()
-                          },
-                          onClose: () => {}
-                        })
-                      }}>
+                      <button className="btn btn-success">
                         Deposit
                       </button>
                     </div>
                   
-                </div>
+                </form>
               </Modal.Body>
             </Modal>
               

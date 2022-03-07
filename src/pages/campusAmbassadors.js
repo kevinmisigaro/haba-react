@@ -168,6 +168,7 @@ export default function CampusAmbassadors() {
     axios
       .post(`https://hababackend.herokuapp.com/api/campusApplication`, formData)
       .then((res) => {
+        console.log(res)
         toast.success("Your application has successfully been sent.");
         history("/");
       })
@@ -255,7 +256,6 @@ export default function CampusAmbassadors() {
                 <label>Name</label>
                 <input
                   className="form-control"
-                  autoComplete="none"
                   name="name"
                   type="text"
                   onChange={handleNameChange}
@@ -266,7 +266,6 @@ export default function CampusAmbassadors() {
                 <label>Email</label>
                 <input
                   className="form-control"
-                  autoComplete="none"
                   name="email"
                   type="email"
                   value={values.email}
@@ -280,7 +279,6 @@ export default function CampusAmbassadors() {
                 <label>Phone</label>
                 <input
                   className="form-control"
-                  autoComplete="none"
                   name="phone"
                   type="text"
                   value={values.phone}
