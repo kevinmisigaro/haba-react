@@ -20,16 +20,16 @@ function App() {
     <div>
         <Routes>
           <Route path="/" exact element={<Home />}/>
-          <Route path="/login" element={<Login/>} />
-          <Route path="/register" element={<Register/>} />
-          <Route path="/members" element={<Members/>} />
-          <Route path="/loans" element={<Requestloan/>} />
-          <Route path="/groups" element={<GroupRegister/>} />
-          <Route path="/investments" element={<Investments/>} />
-          <Route path="/company/:id" element={<CompanyDetailsPage/>}/>
-          <Route path="/dashboard/home" element={<Userdashboardhome/>} />
-          <Route path="/accountConfirm" element={<AccountComplete/>} />
-          <Route path="/campus" element={<CampusAmbassadors/>} />
+          <Route path="/login" exact element={<Login/>} />
+          <Route path="/register" exact element={<Register/>} />
+          <Route path="/members" exact element={<Members/>} />
+          <Route path="/loans" exact element={<Requestloan/>} />
+          <Route path="/groups" exact element={<GroupRegister/>} />
+          <Route path="/investments" exact element={<Investments/>} />
+          <Route path="/company/:id" exact element={<CompanyDetailsPage/>}/>
+          <Route path="/dashboard/home" exact element={<Userdashboardhome/>} />
+          <Route path="/accountConfirm" exact element={<AccountComplete/>} />
+          <Route path="/campus" exact element={<CampusAmbassadors/>} />
         </Routes>
         <ToastContainer />
         <Toaster />
