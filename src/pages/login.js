@@ -48,7 +48,7 @@ function Login() {
           })
           .catch((err) => {
             console.log(err);
-            toast.error('An error has occured');
+            toast.error(err.response.data);
           });
       });
   };

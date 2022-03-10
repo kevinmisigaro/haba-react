@@ -5,10 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { toast } from "react-toastify";
-import moment from 'moment';
+import moment from "moment";
 
 export default function Userdashboardhome() {
   const [user, setUser] = useState({});
+  const [regularSavings, setRegularSavings] = useState({});
   const history = useNavigate();
 
   useEffect(() => {
@@ -16,22 +17,60 @@ export default function Userdashboardhome() {
 
     setUser(JSON.parse(localStorage.getItem("user")));
 
-    console.log(user);
+    const fetchRegularSavings = async () => {
+      axios
+        .get(
+          `https://hababackend.herokuapp.com/api/webapp/regularSavings/${
+            JSON.parse(localStorage.getItem("user")).id
+          }`
+        )
+        .then((data) => {
+          setRegularSavings(data.data);
+        });
+    };
+
+    fetchRegularSavings();
 
     return () => {
       document.body.style.backgroundColor = "";
     };
   }, []);
 
+  //DEPOSIT MODAL HOOKS
   const [showDepositModal, setShowDepositModal] = useState(false);
-
   const handleCloseDepositModal = () => setShowDepositModal(false);
   const handleShowDepositModal = () => setShowDepositModal(true);
+
+  //WITHDRAW MODAL HOOKS
+  const [showWithdrawalModal, setShowWithdrawalModal] = useState(false);
+  const handleCloseWithdrawalModal = () => setShowWithdrawalModal(false);
+  const handleShowWithdrawalModal = () => setShowWithdrawalModal(true);
 
   const [depositValues, setDepositValues] = useState({
     amount: 0,
     phonenumber: "",
   });
+
+  const [withdrawalValues, setWithdrawalValues] = useState({
+    amount: 0,
+    phonenumber: "",
+  });
+
+  const handleWithdrawalAmountChange = (e) => {
+    e.persist();
+    setWithdrawalValues((withdrawalValues) => ({
+      ...withdrawalValues,
+      amount: e.target.value,
+    }));
+  };
+
+  const handleWithdrawalPhoneChange = (e) => {
+    e.persist();
+    setWithdrawalValues((withdrawalValues) => ({
+      ...withdrawalValues,
+      phonenumber: e.target.value,
+    }));
+  };
 
   const handleDepositChange = (e) => {
     e.persist();
@@ -49,14 +88,37 @@ export default function Userdashboardhome() {
     }));
   };
 
+  const handleWithdrawalSubmit = (e) => {
+    e.preventDefault();
+    console.log(withdrawalValues);
+    handleCloseWithdrawalModal();
+
+    axios
+      .post(
+        `https://hababackend.herokuapp.com/api/webapp/regularSavings/withdraw`,
+        {
+          amount: withdrawalValues.amount,
+          userID: user.id,
+          phone: withdrawalValues.phonenumber,
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        return toast.success(res.data);
+      })
+      .catch((err) => {
+        toast.error(err.response.data);
+      });
+  };
+
   const handleDepositSubmit = (e) => {
     e.preventDefault();
     console.log(depositValues);
     handleCloseDepositModal();
 
-    const orderID = moment().unix().toString()
+    const orderID = moment().unix().toString();
 
-    console.log(orderID)
+    console.log(orderID);
 
     const dataSet = {
       api: 170,
@@ -72,34 +134,22 @@ export default function Userdashboardhome() {
     };
 
     axios.post(`https://swahiliesapi.invict.site/Api`, dataSet).then(() => {
-
       axios
         .post(`https://hababackend.herokuapp.com/api/makePayment`, {
           orderID: orderID,
           amount: depositValues.amount,
-          phone: depositValues.phonenumber, 
-          userID: user.id 
+          phone: depositValues.phonenumber,
+          userID: user.id,
         })
         .then(() => {
-          setTimeout(function () {
-            axios
-              .get(
-                `https://hababackend.herokuapp.com/api/checkPaymentStatus/${orderID}`
-              )
-              .then((res) => {
-                if (res.data == "200") {
-                  return toast.success(
-                    `${depositValues.amount} has been added to your account.`
-                  );
-                } else if (res.data == "300") {
-                  return toast.warning(
-                    "The transaction has failed/was cancelled"
-                  );
-                } else {
-                  return toast.error("An error has occured");
-                }
-              });
-          }, 4000);
+          setDepositValues({
+            amount: 0,
+            phonenumber: "",
+          });
+
+          return toast.success(
+            "Deposit request has been made. Await USSD popup."
+          );
         });
     });
   };
@@ -241,8 +291,10 @@ export default function Userdashboardhome() {
             </TabPanel>
             <TabPanel>
               <div className="text-center my-4">
-                <p>Amount saved: TZS 0.00</p>
+                <h4>Amount saved: TZS {regularSavings.amount ?? "0"}</h4>
               </div>
+
+              <br />
 
               <div className="row mb-3">
                 <div className="col-md-6 text-center mb-3">
@@ -254,9 +306,62 @@ export default function Userdashboardhome() {
                   </button>
                 </div>
                 <div className="col-md-6 text-center mb-3">
-                  <button className="btn btn-primary">Withdraw</button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={handleShowWithdrawalModal}
+                  >
+                    Withdraw
+                  </button>
                 </div>
               </div>
+
+              <Modal
+                show={showWithdrawalModal}
+                onHide={handleCloseWithdrawalModal}
+                centered
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>Withdrawal action</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <form onSubmit={handleWithdrawalSubmit}>
+                    <div className="form-group mb-3">
+                      <p>
+                        Enter your details below with the amount you need to
+                        withdraw and which phone number you need the amount to
+                        be sent.
+                      </p>
+                    </div>
+
+                    <div className="form-group mb-3">
+                      <label>Amount</label>
+                      <input
+                        className="form-control"
+                        value={withdrawalValues.amount}
+                        onChange={handleWithdrawalAmountChange}
+                        type="number"
+                      />
+                    </div>
+
+                    <div className="form-group mb-4">
+                      <label>Phone number</label>
+                      <input
+                        className="form-control"
+                        placeholder="Enter number as 07XXXXXXXX"
+                        value={withdrawalValues.phonenumber}
+                        onChange={handleWithdrawalPhoneChange}
+                        type="text"
+                      />
+                    </div>
+
+                    <div className="form-group mb-2">
+                      <button className="btn btn-success" type="submit">
+                        Withdraw
+                      </button>
+                    </div>
+                  </form>
+                </Modal.Body>
+              </Modal>
 
               <Modal
                 show={showDepositModal}
@@ -270,7 +375,7 @@ export default function Userdashboardhome() {
                   <form onSubmit={handleDepositSubmit}>
                     <div className="form-group mb-3">
                       <p>
-                        Make sure your deposit is greater or equal to 1000 TZS
+                        Make sure your deposit is greater or equal to 5000 TZS
                       </p>
                     </div>
                     <div className="form-group mb-2">
@@ -286,7 +391,7 @@ export default function Userdashboardhome() {
                       <label>Phone number</label>
                       <input
                         className="form-control"
-                        placeholder="Enter number as 0782835136"
+                        placeholder="Enter number as 07XXXXXXXX"
                         value={depositValues.phonenumber}
                         onChange={handleNumberChange}
                         type="text"
