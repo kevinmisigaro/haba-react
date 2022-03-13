@@ -31,6 +31,7 @@ export default function CampusAmbassadors() {
     qn8: "",
   });
 
+  const [isLoading, setLoading] = useState(false);
   const gender = ["male", "female"];
 
   const handleNameChange = (e) => {
@@ -149,6 +150,7 @@ export default function CampusAmbassadors() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("email", values.email);
@@ -168,12 +170,14 @@ export default function CampusAmbassadors() {
     axios
       .post(`https://hababackend.herokuapp.com/api/campusApplication`, formData)
       .then((res) => {
-        console.log(res)
+        console.log(res);
         toast.success("Your application has successfully been sent.");
+        setLoading(false);
         history("/campusConfirm");
       })
       .catch((err) => {
         toast.error(err.response.data);
+        setLoading(false);
       });
   };
 
@@ -433,7 +437,7 @@ export default function CampusAmbassadors() {
 
             <div className="form-group pb-5">
               <button className="btn btn-success" type="submit">
-                Submit
+                {isLoading ? "Submitting..." : "Submit"}
               </button>
             </div>
           </form>

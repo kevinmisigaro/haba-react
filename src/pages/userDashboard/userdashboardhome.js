@@ -1,10 +1,12 @@
 import axios from "axios";
+import _ from "lodash";
 import React, { useEffect, useState } from "react";
-import { Button, Card, Modal } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { toast } from "react-toastify";
+import DepositLoan from "../../components/loans/depositLoan";
 import RequestLoanComponent from "../../components/loans/requestLoan";
 import DepositSavings from "../../components/savings/depositSavings";
 import WithdrawSavings from "../../components/savings/withdrawSavings";
@@ -12,6 +14,7 @@ import WithdrawSavings from "../../components/savings/withdrawSavings";
 export default function Userdashboardhome() {
   const [user, setUser] = useState({});
   const [regularSavings, setRegularSavings] = useState({});
+  const [loan, setLoan] = useState({});
   const history = useNavigate();
 
   useEffect(() => {
@@ -31,7 +34,21 @@ export default function Userdashboardhome() {
         });
     };
 
+    const fetchInProgressLoan = async () => {
+      axios
+        .get(
+          `https://hababackend.herokuapp.com/api/admin/inprogressloan/${
+            JSON.parse(localStorage.getItem("user")).id
+          }`
+        )
+        .then((res) => {
+          console.log(res.data);
+          setLoan(res.data);
+        });
+    };
+
     fetchRegularSavings();
+    fetchInProgressLoan();
 
     return () => {
       document.body.style.backgroundColor = "";
@@ -190,14 +207,20 @@ export default function Userdashboardhome() {
               </div>
             </TabPanel>
             <TabPanel>
-              These are your current loans.
-              <br/><br/>
-                <div className="row">
-                  <div className="col-md-6 mb-2">
-                    <RequestLoanComponent user={user} />
-                  </div>
+              <div className="my-4 text-center">
+                {_.isEmpty(loan)
+                  ? "You have no loans"
+                  : `Your current loan amount is TZS ${loan.loan_amount}`}
+              </div>
+              <div className="row">
+                <div className="col-md-6 text-center mb-2">
+                  <RequestLoanComponent user={user} />
                 </div>
-              </TabPanel>
+                <div className="col-md-6 text-center mb-2">
+                  <DepositLoan user={user} />
+                </div>
+              </div>
+            </TabPanel>
           </Tabs>
         </div>
       </div>

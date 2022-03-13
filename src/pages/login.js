@@ -14,6 +14,8 @@ function Login() {
     password: "",
   });
 
+  const [loading,  setLoading] = useState(false)
+
   const history = useNavigate();
 
   const handleIDChange = (e) => {
@@ -34,6 +36,7 @@ function Login() {
 
   const handleSumbit = (e) => {
     e.preventDefault();
+    setLoading(true)
     axios
       .get(`https://hababackend.herokuapp.com/sanctum/csrf-cookie`)
       .then((response) => {
@@ -44,6 +47,7 @@ function Login() {
           .then((res) => {
             console.log(res)
             localStorage.setItem("user", JSON.stringify(res.data))
+            setLoading(false)
             history("/dashboard/home");
           })
           .catch((err) => {
@@ -89,9 +93,9 @@ function Login() {
                   <button
                     type="submit"
                     className="btn btn-block btn-primary btn-user btn-block"
-                    style={{ background: "#00a49f" }}
+                    style={{ background: "#00a49f", border: "1px solid #00a49f" }}
                   >
-                    Login
+                   { loading ? 'Logging in...' : 'Login' }
                   </button>
                 </form>
 
