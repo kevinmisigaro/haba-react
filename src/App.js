@@ -1,10 +1,10 @@
 import React from "react";
 import "./App.css";
 import Home from "./pages/home";
-import Login from "./pages/login";
+import Login from "./pages/auth/login";
 import { Routes, Route } from "react-router-dom";
 import Register from "./pages/register";
-import Members from "./pages/members";
+import Members from "./pages/auth/members";
 import { Toaster } from "react-hot-toast";
 import Requestloan from "./pages/requestloan";
 import GroupRegister from "./pages/groupregister";

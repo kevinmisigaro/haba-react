@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import InnerNavBar from "../components/InnerNavBar";
+import InnerNavBar from "../../components/InnerNavBar";
 
 function Login() {
   useEffect(() => {
@@ -37,6 +37,7 @@ function Login() {
   const handleSumbit = (e) => {
     e.preventDefault();
     setLoading(true)
+
     axios
       .get(`https://hababackend.herokuapp.com/sanctum/csrf-cookie`)
       .then((response) => {
@@ -45,12 +46,12 @@ function Login() {
         axios
           .post(`https://hababackend.herokuapp.com/api/login`, values)
           .then((res) => {
-            console.log(res)
             localStorage.setItem("user", JSON.stringify(res.data))
             setLoading(false)
             history("/dashboard/home");
           })
           .catch((err) => {
+            setLoading(false)
             console.log(err);
             toast.error(err.response.data);
           });

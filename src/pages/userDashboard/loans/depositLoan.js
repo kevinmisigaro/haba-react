@@ -90,7 +90,7 @@ export default function DepositLoan(props) {
   return (
     <>
       <button className="btn btn-primary" onClick={handleShowModal}>
-        Deposit loan
+        Repay loan
       </button>
 
       <Modal show={showModal} onHide={handleCloseModal} centered>

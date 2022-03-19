@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useMultipleForm } from "usetheform";
-import MemberWizardOne from "../components/MemberWizardOne";
-import MemberWizardTwo from "../components/MemberWizardTwo";
+import MemberWizardOne from "../../components/MemberWizardOne";
+import MemberWizardTwo from "../../components/MemberWizardTwo";
 import { useNavigate } from "react-router-dom";
-import InnerNavBar from "../components/InnerNavBar";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import InnerNavBar from "../../components/InnerNavBar";
 
 function Members() {
   const history = useNavigate();
@@ -60,12 +60,12 @@ function Members() {
       .then((res) => {
         toast.success(res.data);
         console.log(res.data);
-        localStorage.setItem('confirm',res.data)
-        history('/')
+        localStorage.setItem("confirm", res.data);
+        history("/");
       })
       .catch((err) => {
         console.log(err);
-        toast.error(err.response.data)
+        toast.error(err.response.data);
       });
   };
 

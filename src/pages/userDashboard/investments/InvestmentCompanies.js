@@ -40,6 +40,8 @@ export default function InvestmentCompanies(props) {
     e.preventDefault()
     setInvestmentLoading(true)
     console.log(values);
+
+    setInvestmentLoading(false)
   }
 
   return (
@@ -80,11 +82,31 @@ export default function InvestmentCompanies(props) {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Company Investment</Modal.Title>
+          <Modal.Title>
+          <b>{company.name}</b> details
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={handleSubmit}>
             <div className="form-group mb-3">
+            
+            <b>Raising goal:</b> {company.currency} {company.raising_goal } <br/>
+            <b>Amount already invested:</b> {company.currency} {company.investment_amount} <br/>
+            <b>Return percentage:</b> { company.return_percentage } <br/>
+            <b>Description:</b> { company.description }
+            
+            <hr/>
+
+            <h5>
+              Company owner details
+            </h5>
+
+            <b>Name:</b> {company.owner?.name} <br/>
+            <b>Haba ID:</b> {company.owner?.haba_id} <br/>
+            <b>Email:</b> {company.owner?.email} <br/>
+
+            </div>
+            <div className="form-group mb-3 mt-4">
               <p>
                 Please enter the amount you want to invest for{" "}
                 <b>{company.name}</b>.

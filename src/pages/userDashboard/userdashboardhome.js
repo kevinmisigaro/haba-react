@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { toast } from "react-toastify";
+import UserGroups from "../../components/groups/UserGroups";
 import InvestmentCompanies from "../../components/investments/InvestmentCompanies";
 import UserInvestedCompanies from "../../components/investments/UserInvestedCompanies";
 import DepositLoan from "../../components/loans/depositLoan";
@@ -19,6 +20,7 @@ export default function Userdashboardhome() {
   const [regularSavings, setRegularSavings] = useState({});
   const [loan, setLoan] = useState({});
   const [companies, setCompanies] = useState([])
+  const [groups, setGroups] = useState([])
   const history = useNavigate();
 
   useEffect(() => {
@@ -38,13 +40,25 @@ export default function Userdashboardhome() {
         });
     };
 
+    const fetchGroups = async () => {
+      axios
+      .get(
+        `https://hababackend.herokuapp.com/api/userGroups/${
+          JSON.parse(localStorage.getItem("user")).id
+        }`
+      )
+      .then((res) => {
+        setGroups(res.data.groups);
+        console.log(res.data.groups)
+      });
+    }
+
+
     const fetchCompanies = async () => {
       axios.get(`https://hababackend.herokuapp.com/api/company`).then((res) => {
         setCompanies(res.data);
       });
     };
-
-    fetchCompanies();
 
     const fetchInProgressLoan = async () => {
       axios
@@ -59,8 +73,10 @@ export default function Userdashboardhome() {
         });
     };
 
-    fetchRegularSavings();
-    fetchInProgressLoan();
+    fetchRegularSavings()
+    fetchInProgressLoan()
+    fetchCompanies()
+    fetchGroups()
 
     return () => {
       document.body.style.backgroundColor = "";
@@ -176,6 +192,9 @@ export default function Userdashboardhome() {
             <TabPanel>
               You are a member of {user.groups?.length}{" "}
               {user.groups?.length == 1 ? "group" : "groups"}
+
+              <UserGroups groups={groups} />
+
             </TabPanel>
             <TabPanel>
               You have {user.companies?.length}{" "}
