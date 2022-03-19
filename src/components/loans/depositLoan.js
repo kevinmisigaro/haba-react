@@ -1,4 +1,5 @@
 import axios from "axios";
+import _ from "lodash";
 import moment from "moment";
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
@@ -34,6 +35,10 @@ export default function DepositLoan(props) {
     e.preventDefault();
     handleCloseModal();
     console.log(values);
+
+    if(_.isEmpty(props.loan)){
+      return toast.error('You have no current ongoing loan');
+    }
 
     const orderID = moment().unix().toString();
 

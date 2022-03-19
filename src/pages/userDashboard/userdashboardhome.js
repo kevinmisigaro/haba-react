@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { toast } from "react-toastify";
+import InvestmentCompanies from "../../components/investments/InvestmentCompanies";
+import UserInvestedCompanies from "../../components/investments/UserInvestedCompanies";
 import DepositLoan from "../../components/loans/depositLoan";
 import RequestLoanComponent from "../../components/loans/requestLoan";
 import DepositSavings from "../../components/savings/depositSavings";
@@ -13,8 +15,10 @@ import WithdrawSavings from "../../components/savings/withdrawSavings";
 
 export default function Userdashboardhome() {
   const [user, setUser] = useState({});
+  const [loggingOut, setLogout] = useState(false);
   const [regularSavings, setRegularSavings] = useState({});
   const [loan, setLoan] = useState({});
+  const [companies, setCompanies] = useState([])
   const history = useNavigate();
 
   useEffect(() => {
@@ -33,6 +37,14 @@ export default function Userdashboardhome() {
           setRegularSavings(data.data);
         });
     };
+
+    const fetchCompanies = async () => {
+      axios.get(`https://hababackend.herokuapp.com/api/company`).then((res) => {
+        setCompanies(res.data);
+      });
+    };
+
+    fetchCompanies();
 
     const fetchInProgressLoan = async () => {
       axios
@@ -57,6 +69,7 @@ export default function Userdashboardhome() {
 
   const handleLogout = (e) => {
     e.preventDefault();
+    setLogout(true);
     axios
       .get(`https://hababackend.herokuapp.com/api/logout`, {
         headers: {
@@ -68,9 +81,11 @@ export default function Userdashboardhome() {
         console.log(res);
         toast.success("You have successfully logged out");
         localStorage.clear();
+        setLogout(false);
         history("/");
       })
       .catch((err) => {
+        setLogout(false);
         toast.error(err.response.data);
       });
   };
@@ -91,7 +106,7 @@ export default function Userdashboardhome() {
             className="btn btn-primary btn-sm py-1 my-2"
             style={{ width: "15%" }}
           >
-            Logout
+            {loggingOut ? "Logging out" : "Logout"}
           </button>
         </div>
         <div className="card-body">
@@ -166,29 +181,9 @@ export default function Userdashboardhome() {
               You have {user.companies?.length}{" "}
               {user.companies?.length == 1 ? "investment" : "investments"}
               <br />
+              <UserInvestedCompanies companies={user.companies} />
               <br />
-              {user.companies?.length > 0 ? (
-                <table class="table table-bordered">
-                  <thead>
-                    <tr>
-                      <th scope="col">Company</th>
-                      <th scope="col">Amount investment</th>
-                      <th scope="col">Approval status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {user.companies?.map((element) => {
-                      <tr key={element.id}>
-                        <td>{element.name}</td>
-                        <td>{element.pivot.amount}</td>
-                        <td>{element.pivot.active}</td>
-                      </tr>;
-                    })}
-                  </tbody>
-                </table>
-              ) : (
-                ""
-              )}
+              <InvestmentCompanies companies={companies} />
             </TabPanel>
             <TabPanel>
               <div className="text-center my-4">
@@ -217,7 +212,7 @@ export default function Userdashboardhome() {
                   <RequestLoanComponent user={user} />
                 </div>
                 <div className="col-md-6 text-center mb-2">
-                  <DepositLoan user={user} />
+                  <DepositLoan user={user} loan={loan} />
                 </div>
               </div>
             </TabPanel>

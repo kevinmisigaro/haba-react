@@ -9,6 +9,7 @@ export default function GroupRegiser() {
   const [groups, setGroups] = useState([]);
   const [joinGroup, updateGroup] = useState(true);
   const history = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const countries = [
     "Tanzania",
@@ -39,13 +40,16 @@ export default function GroupRegiser() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(values);
+    setLoading(true)
     axios
       .post(`https://hababackend.herokuapp.com/api/group/create`, values)
       .then((res) => {
+        setLoading(false)
         toast.success('You have joined the group successfully');
         history("/");
       })
       .catch((err) => {
+        setLoading(false)
         toast.error(err.response.data);
       });
   };
@@ -205,7 +209,7 @@ export default function GroupRegiser() {
                   className="btn btn-success btn-user"
                   style={{ background: "#00a49f" }}
                 >
-                  {!joinGroup ? "Create group" : "Join group"}
+                  { loading ? 'Joining group...' : 'Join group' }
                 </button>
               </div>
             </form>

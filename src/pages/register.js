@@ -9,7 +9,7 @@ function Register() {
   useEffect(() => {
     document.body.style.backgroundColor = "#00a49f";
   });
-
+  const [loading,  setLoading] = useState(false)
   const frequencies = ["weekly", "monthly"];
   const currencies = ["TZS", "USD"];
   const [selectedLicense, setSelectedLicense] = useState(null);
@@ -85,6 +85,8 @@ function Register() {
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
+    setLoading(true)
+
     const formData = new FormData();
     formData.append("name", values.name);
     formData.append("habaID", values.habaID);
@@ -99,12 +101,14 @@ function Register() {
     axios
       .post(`https://hababackend.herokuapp.com/api/company/register`, formData)
       .then((res) => {
+        setLoading(false)
         toast.success(
           "You have uploaded your credentials successfully. Please await feedback"
         );
         history("/");
       })
       .catch((err) => {
+        setLoading(false)
         toast.error(err.response.data);
       });
   };
@@ -248,7 +252,9 @@ function Register() {
 
                 <div className="form-group mb-0">
                   <button className="btn btn-success btn-block">
-                    <b>Create company</b>
+                    <b>
+                      {loading ? 'Creating...': 'Create company' }
+                    </b>
                   </button>
                 </div>
               </form>
