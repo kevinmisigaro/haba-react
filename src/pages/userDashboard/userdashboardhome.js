@@ -6,13 +6,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { toast } from "react-toastify";
-import UserGroups from "../../components/groups/UserGroups";
-import InvestmentCompanies from "../../components/investments/InvestmentCompanies";
-import UserInvestedCompanies from "../../components/investments/UserInvestedCompanies";
-import DepositLoan from "../../components/loans/depositLoan";
-import RequestLoanComponent from "../../components/loans/requestLoan";
-import DepositSavings from "../../components/savings/depositSavings";
-import WithdrawSavings from "../../components/savings/withdrawSavings";
+import DepositLoan from "./loans/depositLoan";
+import RequestLoanComponent from "./loans/requestLoan";
+import DepositSavings from "./savings/depositSavings";
+import WithdrawSavings from "./savings/withdrawSavings";
+import UserGroups from "./groups/UserGroups";
+import InvestmentCompanies from "./investments/InvestmentCompanies";
+import UserInvestedCompanies from "./investments/UserInvestedCompanies";
 
 export default function Userdashboardhome() {
   const [user, setUser] = useState({});
