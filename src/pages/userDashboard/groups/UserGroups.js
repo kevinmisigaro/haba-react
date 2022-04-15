@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Table } from "react-bootstrap";
+import AddMemberButton from "./AddMemberButton";
 
 export default function UserGroups(props) {
   const [show, setShow] = useState(false);
@@ -23,6 +24,7 @@ export default function UserGroups(props) {
               <th>Region</th>
               <th>Country</th>
               <th>Actions</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -38,6 +40,9 @@ export default function UserGroups(props) {
                   >
                     View members
                   </button>
+                </td>
+                <td>
+                  <AddMemberButton group={g} />
                 </td>
               </tr>
             ))}

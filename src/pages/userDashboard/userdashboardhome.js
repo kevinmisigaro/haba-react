@@ -19,11 +19,13 @@ export default function Userdashboardhome() {
   const [loggingOut, setLogout] = useState(false);
   const [regularSavings, setRegularSavings] = useState({});
   const [loan, setLoan] = useState({});
+  const [loading, setLoading] = useState(false)
   const [companies, setCompanies] = useState([])
   const [groups, setGroups] = useState([])
   const history = useNavigate();
 
   useEffect(() => {
+    setLoading(true)
     document.body.style.backgroundColor = "#00a49f";
 
     setUser(JSON.parse(localStorage.getItem("user")));
@@ -73,10 +75,19 @@ export default function Userdashboardhome() {
         });
     };
 
-    fetchRegularSavings()
-    fetchInProgressLoan()
-    fetchCompanies()
-    fetchGroups()
+    fetchRegularSavings().then(
+      () => fetchInProgressLoan().then(
+        () => fetchCompanies().then(
+          () => {
+            fetchGroups()
+            setLoading(false)
+          }
+          )
+        )
+      )
+    
+    
+   
 
     return () => {
       document.body.style.backgroundColor = "";
@@ -193,7 +204,9 @@ export default function Userdashboardhome() {
               You are a member of {user.groups?.length}{" "}
               {user.groups?.length == 1 ? "group" : "groups"}
 
-              <UserGroups groups={groups} />
+              {
+                loading ? 'Loading...' : <UserGroups groups={groups} />
+              }
 
             </TabPanel>
             <TabPanel>
