@@ -2,7 +2,7 @@
   "name": "haba-web",
   "version": "0.1.0",
   "private": false,
-  "homepage": "https://gethaba.com",
+  "homepage": "https://gethaba.app",
   "dependencies": {
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
