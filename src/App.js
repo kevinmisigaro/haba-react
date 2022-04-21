@@ -18,7 +18,7 @@ import CampusConfirm from "./pages/campusConfirm";
 
 function App() {
   return (
-    <div>
+    <div className="App">
         <Routes>
           <Route path="/" exact element={<Home />}/>
           <Route path="/login" exact element={<Login/>} />

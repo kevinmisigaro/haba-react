@@ -12,6 +12,7 @@ import "../home-assets/css/tiny-slider.css";
 import { Link } from "react-router-dom";
 import { useRef } from 'react'
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from "../components/Footer";
 
 function Home() {
 
@@ -21,7 +22,7 @@ function Home() {
   const homeRef = useRef(null)
 
   return (
-    <div className="App">
+    <>
       <header className="header navbar-area">
         <div className="container">
           <div className="row align-items-center">
@@ -405,7 +406,8 @@ function Home() {
       {/* <a href="javaScript:void(0);" className="scroll-top">
           <i className="lni lni-chevron-up"></i>
         </a> */}
-    </div>
+        <Footer/>
+    </>
   );
 }
 
