@@ -2,38 +2,46 @@ import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import { toast } from "react-toastify";
 import DepositLoan from "./loans/depositLoan";
 import RequestLoanComponent from "./loans/requestLoan";
-import DepositSavings from "./savings/depositSavings";
-import WithdrawSavings from "./savings/withdrawSavings";
 import UserGroups from "./groups/UserGroups";
 import InvestmentCompanies from "./investments/InvestmentCompanies";
 import UserInvestedCompanies from "./investments/UserInvestedCompanies";
+import LogoutButton from "./LogoutButton";
+import ProfileTab from "./ProfileTab";
+import SavingsTab from "./savings/SavingsTab";
+import LongTermSavings from "./longtermsavings/LongTermSavings";
+import CreateNewGroup from "./groups/CreateNewGroup";
+import JoinGroupButton from "./groups/JoinGroupButton";
 
 export default function Userdashboardhome() {
   const [user, setUser] = useState({});
-  const [loggingOut, setLogout] = useState(false);
+
   const [regularSavings, setRegularSavings] = useState({});
   const [loan, setLoan] = useState({});
-  const [loading, setLoading] = useState(false)
-  const [companies, setCompanies] = useState([])
-  const [groups, setGroups] = useState([])
-  const history = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [companies, setCompanies] = useState([]);
+  const [groups, setGroups] = useState([]);
+  const [savings, setSavings] = useState([]);
+  const [allGroups, setAllGroups] = useState([]);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     document.body.style.backgroundColor = "#00a49f";
 
     setUser(JSON.parse(localStorage.getItem("user")));
 
+    axios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${localStorage.getItem("token")}`;
+
     const fetchRegularSavings = async () => {
       axios
         .get(
-          `https://hababackend.herokuapp.com/api/webapp/regularSavings/${
+          `${process.env.REACT_APP_API_URL}/webapp/regularSavings/${
             JSON.parse(localStorage.getItem("user")).id
           }`
         )
@@ -42,22 +50,28 @@ export default function Userdashboardhome() {
         });
     };
 
+    const fetchAllGroups = async () => {
+      axios.get(`${process.env.REACT_APP_API_URL}/groups`).then((res) => {
+        setAllGroups(res.data);
+        console.log(res.data);
+      });
+    };
+
     const fetchGroups = async () => {
       axios
-      .get(
-        `https://hababackend.herokuapp.com/api/userGroups/${
-          JSON.parse(localStorage.getItem("user")).id
-        }`
-      )
-      .then((res) => {
-        setGroups(res.data.groups);
-        console.log(res.data.groups)
-      });
-    }
-
+        .get(
+          `${process.env.REACT_APP_API_URL}/userGroups/${
+            JSON.parse(localStorage.getItem("user")).id
+          }`
+        )
+        .then((res) => {
+          setGroups(res.data.groups);
+          console.log(res.data.groups);
+        });
+    };
 
     const fetchCompanies = async () => {
-      axios.get(`https://hababackend.herokuapp.com/api/company`).then((res) => {
+      axios.get(`${process.env.REACT_APP_API_URL}/company`).then((res) => {
         setCompanies(res.data);
       });
     };
@@ -65,7 +79,7 @@ export default function Userdashboardhome() {
     const fetchInProgressLoan = async () => {
       axios
         .get(
-          `https://hababackend.herokuapp.com/api/admin/inprogressloan/${
+          `${process.env.REACT_APP_API_URL}/admin/inprogressloan/${
             JSON.parse(localStorage.getItem("user")).id
           }`
         )
@@ -75,66 +89,46 @@ export default function Userdashboardhome() {
         });
     };
 
-    fetchRegularSavings().then(
-      () => fetchInProgressLoan().then(
-        () => fetchCompanies().then(
-          () => {
-            fetchGroups()
-            setLoading(false)
-          }
+    const fetchUserSavings = async () => {
+      axios
+        .post(`${process.env.REACT_APP_API_URL}/userSavings`)
+        .then((res) => setSavings(res.data));
+    };
+
+    fetchRegularSavings().then(() =>
+      fetchInProgressLoan().then(() =>
+        fetchCompanies().then(() =>
+          fetchGroups().then(() =>
+            fetchUserSavings().then(() => {
+              fetchAllGroups();
+              setLoading(false);
+            })
           )
         )
       )
-    
-    
-   
+    );
 
     return () => {
       document.body.style.backgroundColor = "";
     };
   }, []);
 
-  const handleLogout = (e) => {
-    e.preventDefault();
-    setLogout(true);
-    axios
-      .get(`https://hababackend.herokuapp.com/api/logout`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        toast.success("You have successfully logged out");
-        localStorage.clear();
-        setLogout(false);
-        history("/");
-      })
-      .catch((err) => {
-        setLogout(false);
-        toast.error(err.response.data);
-      });
-  };
-
   return (
     <div className="container pt-5">
       <div className="text-center">
         <h4 style={{ color: "white" }}>
-          <b>Your Recent Haba Activities</b>
+          <b>Your Haba Activities</b>
         </h4>
       </div>
 
       <div className="card mt-4" style={{ width: "100%" }}>
-        <div className="card-header d-flex row justify-content-end">
-          <button
-            onClick={handleLogout}
-            type="button"
-            className="btn btn-primary btn-sm py-1 my-2"
-            style={{ width: "15%" }}
-          >
-            {loggingOut ? "Logging out" : "Logout"}
-          </button>
+        <div className="card-header">
+          <div className="row">
+            <div className="col-md-8"></div>
+            <div className="col-md-4">
+              <LogoutButton />
+            </div>
+          </div>
         </div>
         <div className="card-body">
           <Tabs>
@@ -143,7 +137,8 @@ export default function Userdashboardhome() {
               <Tab>Profile</Tab>
               <Tab>Group</Tab>
               <Tab>Investments</Tab>
-              <Tab>Savings</Tab>
+              <Tab>Regular Savings</Tab>
+              <Tab>Long Term Savings</Tab>
               <Tab>Loans</Tab>
             </TabList>
 
@@ -185,30 +180,19 @@ export default function Userdashboardhome() {
             </TabPanel>
 
             <TabPanel>
-              <div className="container p-3">
-                <b>Name: </b>
-                {user.name}
-                <br />
-                <b>Haba ID:</b> {user.haba_id}
-                <br />
-                <b>Email: </b> {user.email}
-                <br />
-                <br />
-                {/* <Button variant="warning" size="sm" style={{ color: "white" }}>
-                  Edit profile
-                </Button> */}
-              </div>
+              <ProfileTab user={user} />
             </TabPanel>
 
             <TabPanel>
+              <div className="d-flex flex-row justify-content-start mb-3">
+                <CreateNewGroup />
+                <JoinGroupButton allGroups={allGroups} />
+              </div>
               You are a member of {user.groups?.length}{" "}
               {user.groups?.length == 1 ? "group" : "groups"}
-
-              {
-                loading ? 'Loading...' : <UserGroups groups={groups} />
-              }
-
+              {loading ? "Loading..." : <UserGroups groups={groups} />}
             </TabPanel>
+
             <TabPanel>
               You have {user.companies?.length}{" "}
               {user.companies?.length == 1 ? "investment" : "investments"}
@@ -217,22 +201,15 @@ export default function Userdashboardhome() {
               <br />
               <InvestmentCompanies companies={companies} />
             </TabPanel>
+
             <TabPanel>
-              <div className="text-center my-4">
-                <h4>Amount saved: TZS {regularSavings.amount ?? "0"}</h4>
-              </div>
-
-              <br />
-
-              <div className="row mb-3">
-                <div className="col-md-6 text-center mb-3">
-                  <DepositSavings user={user} />
-                </div>
-                <div className="col-md-6 text-center mb-3">
-                  <WithdrawSavings user={user} />
-                </div>
-              </div>
+              <SavingsTab regularSavings={regularSavings} user={user} />
             </TabPanel>
+
+            <TabPanel>
+              <LongTermSavings savings={savings} />
+            </TabPanel>
+
             <TabPanel>
               <div className="my-4 text-center">
                 {_.isEmpty(loan)

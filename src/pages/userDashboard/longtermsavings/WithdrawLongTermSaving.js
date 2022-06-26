@@ -1,12 +1,14 @@
 import axios from "axios";
+import moment from "moment";
 import React, { useState } from "react";
-import { Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 
-export default function WithdrawSavings(props) {
-  const [showWithdrawalModal, setShowWithdrawalModal] = useState(false);
-  const handleCloseWithdrawalModal = () => setShowWithdrawalModal(false);
-  const handleShowWithdrawalModal = () => setShowWithdrawalModal(true);
+export default function WithdrawLongTermSaving({ saving }) {
+  const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const [withdrawalValues, setWithdrawalValues] = useState({
     amount: 0,
@@ -32,41 +34,41 @@ export default function WithdrawSavings(props) {
   const handleWithdrawalSubmit = (e) => {
     e.preventDefault();
     console.log(withdrawalValues);
-    handleCloseWithdrawalModal();
+    setLoading(true);
+
+    if (moment().isSameOrBefore(moment(saving.end_date))) {
+      handleClose();
+      setLoading(false);
+      return toast.error("You cannot remove money before the final date");
+    }
 
     axios.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${localStorage.getItem("token")}`;
 
     axios
-      .post(
-        `${process.env.REACT_APP_API_URL}/webapp/regularSavings/withdraw`,
-        {
-          amount: withdrawalValues.amount,
-          userID: props.user.id,
-          phone: withdrawalValues.phonenumber,
-        }
-      )
+      .post(`${process.env.REACT_APP_API_URL}/savingWithdrawalRequest`, {
+        amount: withdrawalValues.amount,
+        saving_id: saving.id,
+        phone: withdrawalValues.phonenumber,
+      })
       .then((res) => {
         console.log(res.data);
+        handleClose();
+        setLoading(false);
         return toast.success(res.data);
       })
       .catch((err) => {
+        setLoading(false);
         toast.error(err.response.data);
       });
   };
 
   return (
     <>
-      <button className="btn btn-primary" onClick={handleShowWithdrawalModal}>
-        Withdraw 
-      </button>
+      <Button variant="warning" onClick={handleShow} />
 
-      <Modal
-        show={showWithdrawalModal}
-        onHide={handleCloseWithdrawalModal}
-        centered
-      >
+      <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Withdrawal action</Modal.Title>
         </Modal.Header>
@@ -102,7 +104,7 @@ export default function WithdrawSavings(props) {
 
             <div className="form-group mb-2">
               <button className="btn btn-success" type="submit">
-                Withdraw
+                {loading ? "Withdrawing..." : "Withdraw"}
               </button>
             </div>
           </form>

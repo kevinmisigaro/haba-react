@@ -46,21 +46,21 @@ export default function DepositLoan(props) {
       api: 170,
       code: 104,
       data: {
-        api_key: "NDgxNjBkN2MwNDE2NDM3NGI0Y2MzMjNjNWEzMDFhNzM=",
+        api_key: process.env.REACT_APP_SWAHILIES_API_KEY,
         order_id: orderID.toString(),
         amount: values.amount.toString(),
         username: "Haba",
         phone_number: values.phonenumber.toString(),
         webhook_url:
-          "https://hababackend.herokuapp.com/api/admin/depositLoanCallback",
+          `${process.env.REACT_APP_API_URL}/admin/depositLoanCallback`,
       },
     };
 
     axios
-      .post(`https://swahiliesapi.invict.site/Api`, dataSet)
+      .post(`${process.env.REACT_APP_SWAHILIES_URL}`, dataSet)
       .then(() => {
         axios
-          .post("https://hababackend.herokuapp.com/api/makePayment", {
+          .post(`${process.env.REACT_APP_API_URL}/makePayment`, {
             orderID: orderID,
             amount: values.amount,
             phone: values.phonenumber,

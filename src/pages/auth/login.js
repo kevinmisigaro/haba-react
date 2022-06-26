@@ -10,19 +10,19 @@ function Login() {
   });
 
   const [values, setValues] = useState({
-    habaID: "",
+    username: "",
     password: "",
   });
 
-  const [loading,  setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const history = useNavigate();
 
-  const handleIDChange = (e) => {
+  const handleUsernameChange = (e) => {
     e.persist();
     setValues((values) => ({
       ...values,
-      habaID: e.target.value,
+      username: e.target.value,
     }));
   };
 
@@ -36,25 +36,20 @@ function Login() {
 
   const handleSumbit = (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
 
     axios
-      .get(`https://hababackend.herokuapp.com/sanctum/csrf-cookie`)
-      .then((response) => {
-        console.log("Sanctum", response.status);
-
-        axios
-          .post(`https://hababackend.herokuapp.com/api/login`, values)
-          .then((res) => {
-            localStorage.setItem("user", JSON.stringify(res.data))
-            setLoading(false)
-            history("/dashboard/home");
-          })
-          .catch((err) => {
-            setLoading(false)
-            console.log(err);
-            toast.error(err.response.data);
-          });
+      .post(`${process.env.REACT_APP_API_URL}/login`, values)
+      .then((res) => {
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        localStorage.setItem("token", res.data.token);
+        setLoading(false);
+        history("/dashboard/home");
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+        toast.error(err.response.data);
       });
   };
 
@@ -77,9 +72,10 @@ function Login() {
                     <input
                       type="text"
                       className="form-control form-control-user"
-                      value={values.habaID}
-                      onChange={handleIDChange}
-                      placeholder="Enter your Haba ID..."
+                      value={values.username}
+                      onChange={handleUsernameChange}
+                      placeholder="Enter your username..."
+                      autoComplete="off"
                     />
                   </div>
                   <div className="form-group mb-4">
@@ -89,14 +85,18 @@ function Login() {
                       value={values.password}
                       className="form-control form-control-user"
                       placeholder="Password"
+                      autoComplete="off"
                     />
                   </div>
                   <button
                     type="submit"
                     className="btn btn-block btn-primary btn-user btn-block"
-                    style={{ background: "#00a49f", border: "1px solid #00a49f" }}
+                    style={{
+                      background: "#00a49f",
+                      border: "1px solid #00a49f",
+                    }}
                   >
-                   { loading ? 'Logging in...' : 'Login' }
+                    {loading ? "Logging in..." : "Login"}
                   </button>
                 </form>
 
@@ -104,6 +104,10 @@ function Login() {
                 <div className="text-center">
                   <Link className="small" to="/members">
                     Create an Account!
+                  </Link> 
+                  <br/><br/>
+                  <Link className="small" to="/forgotpassword">
+                    Forgot Password
                   </Link>
                 </div>
               </div>

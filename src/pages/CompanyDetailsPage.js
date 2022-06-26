@@ -40,7 +40,7 @@ export default function CompanyDetailsPage() {
 
     const fetchCompany = async (id) => {
       axios
-        .get(`https://hababackend.herokuapp.com/api/company/${id}`)
+        .get(`${process.env.REACT_APP_API_URL}/company/${id}`)
         .then((res) => {
           const data = res.data;
           setCompany(res.data);
@@ -67,7 +67,7 @@ export default function CompanyDetailsPage() {
     console.log(values);
     axios
       .post(
-        `https://hababackend.herokuapp.com/api/company/invest/${id}`,
+        `${process.env.REACT_APP_API_URL}/company/invest/${id}`,
         values
       )
       .then((res) => {

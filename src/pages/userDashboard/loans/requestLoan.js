@@ -103,7 +103,7 @@ export default function RequestLoanComponent(props) {
     });
 
     axios
-      .post(`https://hababackend.herokuapp.com/api/grouprequestLoan`, {
+      .post(`${process.env.REACT_APP_API_URL}/grouprequestLoan`, {
         currency: "TZS",
         amount: values.amount,
         frequency: values.frequency,

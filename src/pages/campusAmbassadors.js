@@ -171,7 +171,7 @@ export default function CampusAmbassadors() {
     formData.append("qn8", values.qn8);
 
     axios
-      .post(`https://hababackend.herokuapp.com/api/campusApplication`, formData)
+      .post(`${process.env.REACT_APP_API_URL}/campusApplication`, formData)
       .then((res) => {
         console.log(res);
         toast.success("Your application has successfully been sent.");

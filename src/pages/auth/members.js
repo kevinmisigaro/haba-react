@@ -6,7 +6,6 @@ import MemberWizardTwo from "../../components/MemberWizardTwo";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import InnerNavBar from "../../components/InnerNavBar";
 
 function Members() {
@@ -20,27 +19,10 @@ function Members() {
     };
   }, []);
 
-  const saveData = () => {
-    console.log({
-      name: getWizardState().name,
-      email: getWizardState().email,
-      phone: getWizardState().phone,
-      gender: getWizardState().gender,
-      dob: getWizardState().dob,
-      occupation: getWizardState().occupation,
-      address: getWizardState().address,
-      region: getWizardState().region,
-      country: getWizardState().country,
-      idtype: getWizardState().idtype,
-      idnumber: getWizardState().idnumber,
-      kinname: getWizardState().kinname,
-      kinphone: getWizardState().kinphone,
-      kinaddress: getWizardState().kinaddress,
-      password: getWizardState().password,
-    });
+  const saveData = () => {  
 
     axios
-      .post(`https://hababackend.herokuapp.com/api/memberStore`, {
+      .post(`${process.env.REACT_APP_API_URL}/memberStore`, {
         name: getWizardState().name,
         email: getWizardState().email,
         phone: getWizardState().phone,
@@ -52,6 +34,7 @@ function Members() {
         country: getWizardState().country,
         idtype: getWizardState().idtype,
         idnumber: getWizardState().idnumber,
+        username: getWizardState().username,
         kinname: getWizardState().kinname,
         kinphone: getWizardState().kinphone,
         kinaddress: getWizardState().kinaddress,

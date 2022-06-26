@@ -1,39 +1,39 @@
 import axios from "axios";
 import moment from "moment";
 import React, { useState } from "react";
-import { Modal } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { toast } from "react-toastify";
 
-export default function DepositSavings(props) {
-  const [showDepositModal, setShowDepositModal] = useState(false);
-  const handleCloseDepositModal = () => setShowDepositModal(false);
-  const handleShowDepositModal = () => setShowDepositModal(true);
+export default function DepositLongTermSaving({ savingID }) {
+  const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-  const [depositValues, setDepositValues] = useState({
+  const [values, setValues] = useState({
     amount: 0,
     phonenumber: "",
   });
 
-  const handleDepositChange = (e) => {
+  const handleAmountChange = (e) => {
     e.persist();
-    setDepositValues((depositValues) => ({
-      ...depositValues,
+    setValues({
+      ...values,
       amount: e.target.value,
-    }));
+    });
   };
 
   const handleNumberChange = (e) => {
     e.persist();
-    setDepositValues((depositValues) => ({
-      ...depositValues,
+    setValues({
+      ...values,
       phonenumber: e.target.value,
-    }));
+    });
   };
 
-  const handleDepositSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(depositValues);
-    handleCloseDepositModal();
+    setLoading(true);
 
     const orderID = moment().unix().toString();
 
@@ -45,10 +45,10 @@ export default function DepositSavings(props) {
       data: {
         api_key: process.env.REACT_APP_SWAHILIES_API_KEY,
         order_id: orderID.toString(),
-        amount: depositValues.amount.toString(),
+        amount: values.amount.toString(),
         username: "Haba",
-        phone_number: depositValues.phonenumber.toString(),
-        webhook_url: `${process.env.REACT_APP_API_URL}/paymentCallback`,
+        phone_number: values.phonenumber.toString(),
+        webhook_url: `${process.env.REACT_APP_API_URL}/newSavingsCallback`,
       },
     };
 
@@ -58,17 +58,20 @@ export default function DepositSavings(props) {
 
     axios.post(`${process.env.REACT_APP_SWAHILIES_URL}`, dataSet).then(() => {
       axios
-        .post(`${process.env.REACT_APP_API_URL}/makePayment`, {
+        .post(`${process.env.REACT_APP_API_URL}/makeSavingsPayment`, {
           orderID: orderID,
-          amount: depositValues.amount,
-          phone: depositValues.phonenumber,
-          userID: props.user.id,
+          amount: values.amount,
+          phone: values.phonenumber,
+          saving_id: savingID,
         })
         .then(() => {
-          setDepositValues({
+          setValues({
             amount: 0,
             phonenumber: "",
           });
+
+          setLoading(false);
+          handleClose();
 
           return toast.success(
             "Deposit request has been made. Await USSD popup."
@@ -79,25 +82,22 @@ export default function DepositSavings(props) {
 
   return (
     <>
-      <button className="btn btn-primary" onClick={handleShowDepositModal}>
+      <Button variant="success" size="sm" onClick={handleShow}>
         Deposit
-      </button>
+      </Button>
 
-      <Modal show={showDepositModal} onHide={handleCloseDepositModal} centered>
+      <Modal show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Deposit amount</Modal.Title>
+          <Modal.Title>Make a deposit</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={handleDepositSubmit}>
-            <div className="form-group mb-3">
-              <p>Make sure your deposit is greater or equal to 5000 TZS</p>
-            </div>
+          <form onSubmit={handleSubmit}>
             <div className="form-group mb-2">
               <label>Amount</label>
               <input
                 className="form-control"
-                value={depositValues.amount}
-                onChange={handleDepositChange}
+                value={values.amount}
+                onChange={handleAmountChange}
                 type="number"
               />
             </div>
@@ -106,14 +106,14 @@ export default function DepositSavings(props) {
               <input
                 className="form-control"
                 placeholder="Enter number as 07XXXXXXXX"
-                value={depositValues.phonenumber}
+                value={values.phonenumber}
                 onChange={handleNumberChange}
                 type="text"
               />
             </div>
             <div className="form-group mb-2">
               <button className="btn btn-success" type="submit">
-                Deposit
+                {loading ? "Depositing..." : "Deposit"}
               </button>
             </div>
           </form>

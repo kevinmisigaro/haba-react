@@ -25,7 +25,7 @@ export default function GroupRegiser() {
     document.body.style.backgroundColor = "#00a49f";
 
     const fetchGroups = async () => {
-      axios.get(`https://hababackend.herokuapp.com/api/groups`).then((res) => {
+      axios.get(`${process.env.REACT_APP_API_URL}/api/groups`).then((res) => {
         const data = res.data;
         setGroups(data);
       });
@@ -43,7 +43,7 @@ export default function GroupRegiser() {
     console.log(values);
     setLoading(true)
     axios
-      .post(`https://hababackend.herokuapp.com/api/group/create`, values)
+      .post(`${process.env.REACT_APP_API_URL}/group/create`, values)
       .then((res) => {
         setLoading(false)
         toast.success('You have joined the group successfully');

@@ -16,12 +16,17 @@ export default function Footer() {
       style={{ background: "#00a49f", color: "white", marginBottom: "0px" }}
     >
       <div className="container">
+
         <div className="row">
         <div
           className="col-md-6 col-xs-12 col-sm-12"
           style={{ textAlign: "left" }}
         >
           <div style={{ width: "80%" }}>
+            <small><b>
+            Haba is duly registered as Community Microfinance Group under Section 28 of the Tanzania Microfinance Act 2018
+            </b></small>
+            <br/><br/>
             <small>
               Get in touch with Haba on our social media to keep up to date with
               the most current information regarding what we do and our most

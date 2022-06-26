@@ -29,16 +29,23 @@ function MemberWizardOne(props) {
             <Input name="name" className="form-control" type="text" />
           </div>
           <div className="col-md-4 mb-3">
+            <label>Username</label>
+            <Input name="username" className="form-control" type="text" />
+          </div>
+          <div className="col-md-4 mb-3">
             <label>Email Address</label>
             <Input name="email" className="form-control" type="email" />
           </div>
           <div className="col-md-4 mb-3">
             <label>Phone number</label>
-            <Input name="phone" className="form-control" placeholder="+255xxxxx" type="text" />
+            <Input
+              name="phone"
+              className="form-control"
+              placeholder="+255xxxxx"
+              type="text"
+            />
           </div>
-        </div>
 
-        <div className="row">
           <div className="col-md-4 mb-3">
             <label>Gender</label>
             <Select name="gender" className="form-control">
@@ -52,7 +59,7 @@ function MemberWizardOne(props) {
           </div>
           <div className="col-md-4 mb-3">
             <label>Date of Birth</label>
-            <Input name="dob" type="text" className="form-control" />
+            <Input name="dob" type="date" className="form-control" />
           </div>
           <div className="col-md-4 mb-3">
             <label>Occupation</label>
@@ -65,9 +72,7 @@ function MemberWizardOne(props) {
               ))}
             </Select>
           </div>
-        </div>
 
-        <div className="row">
           <div className="col-md-4 mb-3">
             <label>Physical Address</label>
             <Input name="address" type="text" className="form-control" />
@@ -87,10 +92,8 @@ function MemberWizardOne(props) {
               ))}
             </Select>
           </div>
-        </div>
 
-        <div className="row">
-          <div className="col-md-6 mb-3">
+          <div className="col-md-4 mb-3">
             <label>Identification type</label>
             <Select name="idtype" className="form-control">
               <option value="">Choose your identification card</option>
@@ -101,21 +104,23 @@ function MemberWizardOne(props) {
               ))}
             </Select>
           </div>
-          <div className="col-md-6 mb-3">
+          <div className="col-md-4 mb-3">
             <label>Identification Card Number</label>
             <Input name="idnumber" className="form-control" type="text" />
           </div>
-        </div>
 
-        <div className="row">
-            <div className="col-md-6 mb-3">
+          <div className="col-md-6 mb-3">
             <label>Password</label>
             <Input type="password" name="password" className="form-control" />
-            </div>
-            <div className="col-md-6 mb-3">
+          </div>
+          <div className="col-md-6 mb-3">
             <label>Confirm Password</label>
-            <input type='password' name="confirmpassword" className="form-control" />
-            </div>
+            <input
+              type="password"
+              name="confirmpassword"
+              className="form-control"
+            />
+          </div>
         </div>
 
         <div className="text-center">

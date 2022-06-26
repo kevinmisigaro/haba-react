@@ -15,6 +15,9 @@ import Userdashboardhome from "./pages/userDashboard/userdashboardhome";
 import AccountComplete from "./pages/accountComplete";
 import CampusAmbassadors from "./pages/campusAmbassadors";
 import CampusConfirm from "./pages/campusConfirm";
+import "react-toastify/dist/ReactToastify.css";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import PasswordReset from "./pages/auth/PasswordReset";
 
 function App() {
   return (
@@ -32,6 +35,8 @@ function App() {
           <Route path="/accountConfirm" exact element={<AccountComplete/>} />
           <Route path="/campus" exact element={<CampusAmbassadors/>} />
           <Route path="/campusConfirm" exact element={<CampusConfirm/>} />
+          <Route path="/forgotpassword" exact element={<ForgotPassword/>} />
+          <Route path="/password/reset/:tokenId" exact element={<PasswordReset/>} />
         </Routes>
         <ToastContainer />
         <Toaster />
