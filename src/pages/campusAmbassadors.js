@@ -151,7 +151,7 @@ export default function CampusAmbassadors() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    return toast.success('Campus submission is closed for now!')
+    // return toast.success('Campus submission is closed for now!')
 
     setLoading(true);
     const formData = new FormData();

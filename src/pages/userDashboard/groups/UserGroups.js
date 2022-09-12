@@ -17,7 +17,7 @@ export default function UserGroups(props) {
   return (
     <>
       {props.groups.length > 0 && (
-        <Table striped bordered hover className="mt-4">
+        <Table striped bordered hover responsive className="mt-4">
           <thead>
             <tr>
               <th>Group name</th>
