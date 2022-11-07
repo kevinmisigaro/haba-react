@@ -19,7 +19,8 @@ function Members() {
     };
   }, []);
 
-  const saveData = () => {  
+  const saveData = () => {
+    setLoading(true);
 
     axios
       .post(`${process.env.REACT_APP_API_URL}/memberStore`, {
@@ -43,11 +44,13 @@ function Members() {
       .then((res) => {
         toast.success(res.data);
         console.log(res.data);
+        setLoading(false);
         localStorage.setItem("confirm", res.data);
         history("/");
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
         toast.error(err.response.data);
       });
   };
@@ -55,6 +58,7 @@ function Members() {
   const [currentPage, setPage] = useState(1);
   const nextPage = () => setPage((prev) => ++prev);
   const prevPage = () => setPage((prev) => --prev);
+  const [loading, setLoading] = useState(false);
 
   const [getWizardState, wizard] = useMultipleForm();
 
@@ -70,10 +74,21 @@ function Members() {
         className="container d-flex justify-content-center"
         style={{ marginTop: "120px" }}
       >
-        <div className="card" style={{ width: "60rem" }}>
+        <div
+          className="card"
+          style={{
+            width: "60rem",
+            border: "1px solid white",
+            borderRadius: "1rem",
+          }}
+        >
           <div className="card-body">
             {currentPage === 1 && (
-              <MemberWizardOne {...wizard} onSubmit={nextPage} />
+              <MemberWizardOne
+                {...wizard}
+                onSubmit={onSubmitWizard}
+                loading={loading}
+              />
             )}
             {currentPage === 2 && (
               <MemberWizardTwo

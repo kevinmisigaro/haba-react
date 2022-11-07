@@ -90,7 +90,7 @@ export default function DepositSavings(props) {
         <Modal.Body>
           <form onSubmit={handleDepositSubmit}>
             <div className="form-group mb-3">
-              <p>Make sure your deposit is greater or equal to 5000 TZS</p>
+              <p>Make sure your deposit is greater or equal to 1000 TZS</p>
             </div>
             <div className="form-group mb-2">
               <label>Amount</label>

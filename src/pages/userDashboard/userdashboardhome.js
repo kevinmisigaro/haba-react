@@ -16,6 +16,8 @@ import SavingsTab from "./savings/SavingsTab";
 import LongTermSavings from "./longtermsavings/LongTermSavings";
 import CreateNewGroup from "./groups/CreateNewGroup";
 import JoinGroupButton from "./groups/JoinGroupButton";
+import Requestphone from "./ynine/requestphone";
+import Repayphone from "./ynine/repayphone";
 
 export default function Userdashboardhome() {
   const [user, setUser] = useState({});
@@ -140,6 +142,7 @@ export default function Userdashboardhome() {
               <Tab>Regular Savings</Tab>
               <Tab>Long Term Savings</Tab>
               <Tab>Loans</Tab>
+              <Tab>Y9</Tab>
             </TabList>
 
             <TabPanel>
@@ -225,6 +228,19 @@ export default function Userdashboardhome() {
                 </div>
               </div>
             </TabPanel>
+
+            <TabPanel>
+              <div className="mb-5 text-center"></div>
+              <div className="row">
+                <div className="col-md-6 text-center mb-2">
+                  <Requestphone user={user} />
+                </div>
+                <div className="col-md-6 text-center mb-2">
+                  <Repayphone user={user} loan={loan} />
+                </div>
+              </div>
+            </TabPanel>
+
           </Tabs>
         </div>
       </div>

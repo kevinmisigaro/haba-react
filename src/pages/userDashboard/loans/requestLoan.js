@@ -260,35 +260,35 @@ export default function RequestLoanComponent(props) {
                 <div className="mb-3">
                   <input
                     className="form-control mb-2"
-                    placeholder="Guarantor member ID #1"
+                    placeholder="Guarantor username"
                     name="guarantor1"
                     value={guarantorIDs.guarantor1}
                     onChange={handleGuarantor1Change}
                   />
                   <input
                     className="form-control mb-2"
-                    placeholder="Guarantor member ID #2"
+                    placeholder="Guarantor username"
                     name="guarantor2"
                     value={guarantorIDs.guarantor2}
                     onChange={handleGuarantor2Change}
                   />
                   <input
                     className="form-control mb-2"
-                    placeholder="Guarantor member ID #3"
+                    placeholder="Guarantor username"
                     name="guarantor3"
                     value={guarantorIDs.guarantor3}
                     onChange={handleGuarantor3Change}
                   />
                   <input
                     className="form-control mb-2"
-                    placeholder="Guarantor member ID #4"
+                    placeholder="Guarantor username"
                     name="guarantor4"
                     value={guarantorIDs.guarantor4}
                     onChange={handleGuarantor4Change}
                   />
                   <input
                     className="form-control mb-2"
-                    placeholder="Guarantor member ID #5"
+                    placeholder="Guarantor username"
                     name="guarantor5"
                     value={guarantorIDs.guarantor5}
                     onChange={handleGuarantor5Change}

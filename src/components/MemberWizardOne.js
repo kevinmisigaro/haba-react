@@ -124,13 +124,15 @@ function MemberWizardOne(props) {
         </div>
 
         <div className="text-center">
-          <button
-            type="submit"
-            className="btn btn-success btn-user"
-            style={{ background: "#00a49f" }}
-          >
-            Next
-          </button>
+       {
+        props.loading ? <div className="btn btn-success btn-user">Creating...</div> :  <button
+        type="submit"
+        className="btn btn-success btn-user"
+        style={{ background: "#00a49f" }}
+      >
+        Create Account
+      </button>
+       }
         </div>
       </Form>
     </>

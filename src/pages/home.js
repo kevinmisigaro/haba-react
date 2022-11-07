@@ -9,7 +9,7 @@ import "../home-assets/css/LineIcons.2.0.css";
 import "../home-assets/css/main.css";
 import "../home-assets/css/styles.css";
 import "../home-assets/css/tiny-slider.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRef } from 'react'
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from "../components/Footer";
@@ -20,6 +20,7 @@ function Home() {
   const benefitsRef = useRef(null)
   const journeyRef = useRef(null)
   const homeRef = useRef(null)
+  const navigate = useNavigate()
 
   return (
     <>
@@ -164,8 +165,9 @@ function Home() {
                   </a> */}
 
                   <button onClick={(e) => {
-                            e.preventDefault()
-                           journeyRef.current.scrollIntoView()
+                          //   e.preventDefault()
+                          //  journeyRef.current.scrollIntoView()
+                          navigate('/members')
                           }} className="btn btn-alt mb-2">
                     Start your saving journey
                   </button>
