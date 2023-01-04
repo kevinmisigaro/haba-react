@@ -12,7 +12,9 @@ function MemberWizardOne(props) {
     "Nigeria",
     "Rwanda",
   ];
-  const cards = ["NIDA", "International Passport", "Driver's license"];
+  const cards = [
+    "NIDA", "International Passport", "Driver's license", "Voters Registration Card"
+  ];
 
   return (
     <>
@@ -81,6 +83,7 @@ function MemberWizardOne(props) {
             <label>Region</label>
             <Input name="region" type="text" className="form-control" />
           </div>
+          
           <div className="col-md-4 mb-3">
             <label>Country</label>
             <Select name="country" className="form-control">
@@ -104,6 +107,7 @@ function MemberWizardOne(props) {
               ))}
             </Select>
           </div>
+
           <div className="col-md-4 mb-3">
             <label>Identification Card Number</label>
             <Input name="idnumber" className="form-control" type="text" />
