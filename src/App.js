@@ -18,6 +18,7 @@ import CampusConfirm from "./pages/campusConfirm";
 import "react-toastify/dist/ReactToastify.css";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import PasswordReset from "./pages/auth/PasswordReset";
+import PhoneLogin from "./pages/auth/PhoneLogin";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/campusConfirm" exact element={<CampusConfirm/>} />
           <Route path="/forgotpassword" exact element={<ForgotPassword/>} />
           <Route path="/password/reset/:tokenId" exact element={<PasswordReset/>} />
+          <Route path="/phonelogin" exact element={<PhoneLogin />} />
         </Routes>
         <ToastContainer />
         <Toaster />

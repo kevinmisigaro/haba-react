@@ -1,36 +1,27 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import InnerNavBar from "../../components/InnerNavBar";
 
-function Login() {
+export default function PhoneLogin() {
   useEffect(() => {
     document.body.style.backgroundColor = "#00a49f";
   });
 
   const [values, setValues] = useState({
-    username: "",
-    password: "",
+    phone: "",
   });
 
   const [loading, setLoading] = useState(false);
 
   const history = useNavigate();
 
-  const handleUsernameChange = (e) => {
+  const handlePhoneChange = (e) => {
     e.persist();
     setValues((values) => ({
       ...values,
-      username: e.target.value,
-    }));
-  };
-
-  const handlePasswordChange = (e) => {
-    e.persist();
-    setValues((values) => ({
-      ...values,
-      password: e.target.value,
+      phone: e.target.value,
     }));
   };
 
@@ -39,7 +30,7 @@ function Login() {
     setLoading(true);
 
     axios
-      .post(`${process.env.REACT_APP_API_URL}/login`, values)
+      .post(`${process.env.REACT_APP_API_URL}/newPhoneLogin`, values)
       .then((res) => {
         localStorage.setItem("user", JSON.stringify(res.data.user));
         localStorage.setItem("token", res.data.token);
@@ -65,32 +56,22 @@ function Login() {
             <div className="card-body p-0">
               <div className="p-5">
                 <div className="text-center">
-                  <h1 className="h4 text-gray-900 mb-4">Welcome</h1>
+                  <h1 className="h4 text-gray-900 mb-4">Phone Login</h1>
                 </div>
                 <form className="user" onSubmit={handleSumbit}>
-                  <div className="form-group mb-3">
+                  <div className="form-group mb-5">
                     <input
                       type="text"
                       className="form-control form-control-user"
-                      value={values.username}
-                      onChange={handleUsernameChange}
-                      placeholder="Enter your username..."
-                      autoComplete="off"
-                    />
-                  </div>
-                  <div className="form-group mb-4">
-                    <input
-                      type="password"
-                      onChange={handlePasswordChange}
-                      value={values.password}
-                      className="form-control form-control-user"
-                      placeholder="Password"
+                      value={values.phone}
+                      onChange={handlePhoneChange}
+                      placeholder="Enter your phone number starting with 067..."
                       autoComplete="off"
                     />
                   </div>
                   <button
                     type="submit"
-                    className="btn btn-block btn-primary btn-user btn-block"
+                    className="btn btn-block btn-primary btn-user btn-block px-5"
                     style={{
                       background: "#00a49f",
                       border: "1px solid #00a49f",
@@ -102,12 +83,12 @@ function Login() {
 
                 <hr />
                 <div className="d-flex flex-column justify-content-between">
-                  <Link className="small pb-3" to="/phonelogin">
-                    Phone Login
+                  <Link className="small pb-3" to="/login">
+                    Email Login
                   </Link>
                   <Link className="small pb-3" to="/members">
                     Create an Account!
-                  </Link>
+                  </Link>{" "}
                   <Link className="small pb-3" to="/forgotpassword">
                     Forgot Password
                   </Link>
@@ -120,5 +101,3 @@ function Login() {
     </>
   );
 }
-
-export default Login;
