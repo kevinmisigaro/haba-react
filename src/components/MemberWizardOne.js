@@ -61,7 +61,7 @@ function MemberWizardOne(props) {
           </div>
           <div className="col-md-4 mb-3">
             <label>Date of Birth</label>
-            <Input name="dob" type="date" className="form-control" />
+            <Input name="dob" type="date" value="2002-01-01" className="form-control" />
           </div>
           <div className="col-md-4 mb-3">
             <label>Occupation</label>
